@@ -5,7 +5,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sass": "sass --watch ./sass/main.scss:./css/style.css -w ",
+    "prefix": "postcss ./css/style.css --use autoprefixer -d ./css/prefixed/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CedricMlg/P6_FishEye_Malingre_Cedric"
   },
   "devDependencies": {
     "sass": "^1.52.3",
