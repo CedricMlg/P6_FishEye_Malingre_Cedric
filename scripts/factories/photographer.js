@@ -12,6 +12,15 @@ export default function photographerFactory(data) {
     const tag = document.createElement("p");
     const money = document.createElement("p");
 
+    article.classList.add("photographer__block");
+    lien.classList.add("photographer__link");
+    lien.ariaLabel = name;
+    img.classList.add("photographer__portrait");
+    h2.classList.add("photographer__name");
+    location.classList.add("photographer__location");
+    tag.classList.add("photographer__tagline");
+    money.classList.add("photographer__price");
+
     img.setAttribute("src", picture);
 
     h2.textContent = name;
