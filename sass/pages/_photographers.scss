@@ -31,19 +31,19 @@
   justify-content: space-between;
   padding: 35px;
   margin: auto;
-}
 
-.modal header {
-  justify-content: space-between;
-  width: 100%;
-}
+  & header {
+    justify-content: space-between;
+    width: 100%;
+  }
 
-.modal header img {
-  cursor: pointer;
-}
+  & header img {
+    cursor: pointer;
+  }
 
-.modal header h2 {
-  font-size: 64px;
-  font-weight: normal;
-  text-align: center;
+  & header h2 {
+    font-size: 64px;
+    font-weight: normal;
+    text-align: center;
+  }
 }
