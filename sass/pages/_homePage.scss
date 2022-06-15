@@ -1,11 +1,11 @@
-.photographer_section {
+.photographer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 70px;
   margin-top: 100px;
 }
 
-.photographer_section article {
+.photographer article {
   justify-self: center;
   display: flex;
   justify-content: center;
@@ -13,12 +13,12 @@
   flex-direction: column;
 }
 
-.photographer_section article h2 {
+.photographer article h2 {
   color: $primary-color2;
   font-size: 36px;
 }
 
-.photographer_section article img {
+.photographer article img {
   height: 200px;
   width: 200px;
 }

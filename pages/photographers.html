@@ -16,7 +16,7 @@
     </header>
     <main id="main">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">
+        <button class="photograph-header__button contact-button">
           Contactez-moi
         </button>
       </div>
@@ -25,17 +25,17 @@
       <div class="modal">
         <header>
           <h2>Contactez-moi</h2>
-          <img src="../assets/icons/close.svg" onclick="closeModal()" />
+          <img class="modal__close-button" src="../assets/icons/close.svg"/>
         </header>
-        <form>
+        <form class="modal-form">
           <div>
             <label>Prénom</label>
             <input />
           </div>
-          <button class="contact_button">Envoyer</button>
+          <button class="modal-form__button contact-button">Envoyer</button>
         </form>
       </div>
     </div>
-    <script src="../scripts/utils/contactForm.js"></script>
+    <script type="module" src="../scripts/pages/photographer.js"></script>
   </body>
 </html>

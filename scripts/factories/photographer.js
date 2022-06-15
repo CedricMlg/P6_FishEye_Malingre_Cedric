@@ -5,24 +5,23 @@ export default function photographerFactory(data) {
 
   function getUserCardDOM() {
     const article = document.createElement("article");
+    const lien = document.createElement("a");
     const img = document.createElement("img");
     const h2 = document.createElement("h2");
-    const place = document.createElement("p");
-    const location = document.createElement("p");
+    const location = document.createElement("h3");
     const tag = document.createElement("p");
     const money = document.createElement("p");
 
     img.setAttribute("src", picture);
 
     h2.textContent = name;
-    place.textContent = city;
-    location.textContent = country;
+    location.textContent = `${city}, ${country}`;
     tag.textContent = tagline;
     money.textContent = `${price}€/jour`;
 
-    article.appendChild(img);
-    article.appendChild(h2);
-    article.appendChild(place);
+    article.appendChild(lien);
+    lien.appendChild(img);
+    lien.appendChild(h2);
     article.appendChild(location);
     article.appendChild(tag);
     article.appendChild(money);
