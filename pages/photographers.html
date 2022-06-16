@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <link href="../css/style.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="../css/style.css" rel="stylesheet" type="text/css" /> -->
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="../assets/favicon.png" />
     <link
@@ -12,11 +12,21 @@
   </head>
   <body>
     <header>
-      <img href="../index.html" src="../assets/images/logo.png" class="logo" />
+      <a href="../index.html">
+        <img
+          alt="Fisheye Home page"
+          src="../assets/images/logo.png"
+          class="logo"
+        />
+      </a>
     </header>
     <main id="main">
       <div class="photograph-header">
-        <button class="photograph-header__button contact-button">
+        <button
+          type="button"
+          aria-label="Contact Me"
+          class="photograph-header__button contact-button"
+        >
           Contactez-moi
         </button>
       </div>
@@ -32,7 +42,13 @@
             <label>Prénom</label>
             <input />
           </div>
-          <button class="modal-form__button contact-button">Envoyer</button>
+          <button
+            type="button"
+            aria-label="Send"
+            class="modal-form__button contact-button"
+          >
+            Envoyer
+          </button>
         </form>
       </div>
     </div>

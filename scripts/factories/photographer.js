@@ -17,6 +17,7 @@ export default function photographerFactory(data) {
     lien.href = `./pages/photographers.html?id=${id}`;
     lien.ariaLabel = name;
     img.classList.add("photographer__portrait");
+    img.alt = "";
     h2.classList.add("photographer__name");
     location.classList.add("photographer__location");
     tag.classList.add("photographer__tagline");
