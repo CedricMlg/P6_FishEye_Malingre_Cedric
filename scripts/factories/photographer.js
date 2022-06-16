@@ -1,5 +1,5 @@
 export default function photographerFactory(data) {
-  const { portrait, name, city, country, tagline, price } = data;
+  const { id, portrait, name, city, country, tagline, price } = data;
 
   const picture = `assets/photographers/${portrait}`;
 
@@ -14,6 +14,7 @@ export default function photographerFactory(data) {
 
     article.classList.add("photographer__block");
     lien.classList.add("photographer__link");
+    lien.href = `./pages/photographers.html?id=${id}`;
     lien.ariaLabel = name;
     img.classList.add("photographer__portrait");
     h2.classList.add("photographer__name");
@@ -37,5 +38,5 @@ export default function photographerFactory(data) {
 
     return article;
   }
-  return { name, picture, tagline, price, getUserCardDOM };
+  return { id, name, picture, tagline, price, getUserCardDOM };
 }

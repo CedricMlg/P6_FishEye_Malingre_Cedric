@@ -1,5 +1,9 @@
 import "./../../sass/main.scss";
 
+const paramsURL = (new URL(document.location)).searchParams;
+let idPhotographer = paramsURL.get('id');
+console.log (idPhotographer);
+
 const openContact = document.querySelectorAll(".photograph-header__button");
 const closeContact = document.querySelectorAll(".modal__close-button");
 
