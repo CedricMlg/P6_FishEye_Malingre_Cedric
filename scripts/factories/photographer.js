@@ -1,8 +1,6 @@
 export default function photographerFactory(data) {
   const { id, portrait, name, city, country, tagline, price } = data;
 
-  const picture = `assets/photographers/${portrait}`;
-
   function getUserCardDOM() {
     const article = document.createElement("article");
     const lien = document.createElement("a");
@@ -23,7 +21,7 @@ export default function photographerFactory(data) {
     tag.classList.add("photographer__tagline");
     money.classList.add("photographer__price");
 
-    img.setAttribute("src", picture);
+    img.setAttribute("src", `assets/photographers/${portrait}`);
 
     h2.textContent = name;
     location.textContent = `${city}, ${country}`;
@@ -39,5 +37,48 @@ export default function photographerFactory(data) {
 
     return article;
   }
-  return { id, name, picture, tagline, price, getUserCardDOM };
+
+  function focusUserProfilDOM() {
+    const profil = document.createElement("div");
+    const article = document.createElement("article");
+    const h1 = document.createElement("h1");
+    const h2 = document.createElement("h2");
+    const tag = document.createElement("p");
+
+    profil.classList.add("photographer-profil");
+    profil.id = "photo-headerProfil";
+    article.classList.add("photographer-profil__block");
+    h1.classList.add("photographer-profil__name");
+    h2.classList.add("photographer-profil__location");
+    tag.classList.add("photographer-profil__tagline");
+
+    h1.textContent = name;
+    h2.textContent = `${city}, ${country}`;
+    tag.textContent = tagline;
+
+    profil.appendChild(article);
+    article.appendChild(h1);
+    article.appendChild(h2);
+    article.appendChild(tag);
+
+    return profil;
+  }
+
+  function focusUserPortraitDOM() {
+    const port = document.createElement("div");
+    const img = document.createElement("img");
+
+    port.classList.add("photographer-portrait");
+    port.id = "photo-headerPortrait";
+    img.classList.add("photographer-portrait__picture");
+
+    img.alt = "";
+    img.setAttribute("src", `../assets/photographers/${portrait}`);
+
+    port.appendChild(img);
+
+    return port;
+  }
+
+  return { id, portrait, name, city, country, tagline, price , getUserCardDOM, focusUserProfilDOM, focusUserPortraitDOM };
 }

@@ -21,14 +21,29 @@
       </a>
     </header>
     <main id="main">
-      <div class="photograph-header">
+      <div class="photographer-header">
         <button
+          id="photo-headerBtn"
           type="button"
           aria-label="Contact Me"
-          class="photograph-header__button contact-button"
+          class="photographer-header__button contact-button"
         >
           Contactez-moi
         </button>
+      </div>
+      <div class="photographer-work">
+        <label class="photographer-work__sortTxt" for="sort">Trier par</label>
+        <select
+          class="photographer-work__sortList"
+          name="sortBy"
+          id="sort"
+        >
+          <option value="0">Popularité</option>
+          <option value="1">Date</option>
+          <option value="2">Titre</option>
+        </select>
+        <div class="photographer-work__media"></div>
+        <div class="photographer-bottomInfo"></div>
       </div>
     </main>
     <div id="contact_modal">

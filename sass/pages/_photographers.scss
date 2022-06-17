@@ -2,10 +2,35 @@
   display: none;
 }
 
-.photograph-header {
-  background-color: $secondary-color2;
-  height: 300px;
-  margin: 0 100px;
+.photographer {
+  &-header {
+    background-color: $secondary-color2;
+    height: 300px;
+    margin: 0 100px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    height: auto;
+    grid-template-areas:
+      "elem1 elem2 elem3";
+    & > #photographer-profil {
+      grid-area: elem1;
+    }
+    & > #photo-headerBtn {
+      grid-area: elem2;
+    }
+    & > #photographer-portrait {
+      grid-area: elem3;
+    }
+  }
+  &-portrait {
+    &__picture {
+      object-fit: cover;
+      border-radius: 50%;
+      height: 200px;
+      width: 200px;
+    }
+  }
 }
 
 .modal {
