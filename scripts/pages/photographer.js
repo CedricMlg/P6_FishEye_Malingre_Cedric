@@ -1,5 +1,5 @@
 import photographerFactory from "../factories/photographer.js";
-import mediaFactory from "../factories/media.js";
+// import mediaFactory from "../factories/media.js";
 // import "./index.js";
 import "./../../sass/main.scss";
 
@@ -24,9 +24,8 @@ function closeModal() {
   modal.style.display = "none";
 }
 
-const paramsURL = (new URL(document.location)).searchParams;
-let idPhotographer = paramsURL.get('id');
-
+const paramsURL = new URL(document.location).searchParams;
+let idPhotographer = paramsURL.get("id");
 
 async function getPhotographers() {
   const response = await fetch("../../data/photographers.json");
@@ -37,24 +36,34 @@ async function getPhotographers() {
 async function displayData(photographers) {
   const photographerHeader = document.querySelector(".photographer-header");
 
-  const photographerSelect = photographers.find((element) => element.idPhotographer === photographers.id);
+  const photographerSelect = photographers.find(
+    (element) => element.id === parseInt (idPhotographer)
+  );
+
   const photographerModel = photographerFactory(photographerSelect);
 
   const focusUserProfilDOM = photographerModel.focusUserProfilDOM();
-  photographerHeader.appendChild(focusUserProfilDOM);
-
-  const focusUserPortraitDOM = photographerModel.focusUserPortraitDOM();
-  photographerHeader.appendChild(focusUserPortraitDOM);
+  photographerHeader.appendChild(focusUserProfilDOM.profil);
+  photographerHeader.appendChild(focusUserProfilDOM.portrait);
 }
 
-async function displayMedia() {
+async function displayMedia(photographers) {
+  const photographerWork = document.querySelector(".photographer-work__media");
 
+  const photographerSelect = photographers.filter(
+    (element) => element.photographerId === parseInt (idPhotographer)
+  );
+
+  // photographers.forEach((photographer) => {
+  //   const photographerMedia = mediaFactory(photographer);
+  //   const focusUserMediaDOM = photographerMedia.focusUserMediaDOM();
+  // });
 }
 
 async function init() {
   const { photographers } = await getPhotographers();
   displayData(photographers.photographers);
-  displayMedia();
+  displayMedia(photographers.media);
 }
 
 init();

@@ -4,7 +4,7 @@ import "./../../sass/main.scss";
 async function getPhotographers() {
   const response = await fetch("../../data/photographers.json");
   const data = await response.json();
-  return { photographers: data.photographers };
+  return { photographers: data };
 }
 
 async function displayData(photographers) {
@@ -20,7 +20,7 @@ async function displayData(photographers) {
 async function init() {
   // Récupère les datas des photographes
   const { photographers } = await getPhotographers();
-  displayData(photographers);
+  displayData(photographers.photographers);
 }
 
 init();
