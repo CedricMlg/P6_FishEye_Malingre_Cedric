@@ -1,6 +1,5 @@
 import photographerFactory from "../factories/photographer.js";
-// import mediaFactory from "../factories/media.js";
-// import "./index.js";
+import { FactoryMedia } from "../factories/media.js";
 import "./../../sass/main.scss";
 
 const openContact = document.querySelectorAll(".photographer-header__button");
@@ -54,10 +53,7 @@ async function displayMedia(photographers) {
     (element) => element.photographerId === parseInt (idPhotographer)
   );
 
-  // photographers.forEach((photographer) => {
-  //   const photographerMedia = mediaFactory(photographer);
-  //   const focusUserMediaDOM = photographerMedia.focusUserMediaDOM();
-  // });
+  let media = new FactoryMedia (photographerSelect);
 }
 
 async function init() {
