@@ -36,12 +36,12 @@ async function displayData(photographers) {
   const photographerHeader = document.querySelector(".photographer-header");
 
   const photographerSelect = photographers.find(
-    (element) => element.id === parseInt (idPhotographer)
+    (element) => element.id === parseInt(idPhotographer)
   );
 
   const photographerModel = photographerFactory(photographerSelect);
-
   const focusUserProfilDOM = photographerModel.focusUserProfilDOM();
+
   photographerHeader.appendChild(focusUserProfilDOM.profil);
   photographerHeader.appendChild(focusUserProfilDOM.portrait);
 }
@@ -50,10 +50,10 @@ async function displayMedia(photographers) {
   const photographerWork = document.querySelector(".photographer-work__media");
 
   const photographerSelect = photographers.filter(
-    (element) => element.photographerId === parseInt (idPhotographer)
+    (element) => element.photographerId === parseInt(idPhotographer)
   );
 
-  let media = new FactoryMedia (photographerSelect);
+  let media = new FactoryMedia(photographerSelect);
 }
 
 async function init() {
