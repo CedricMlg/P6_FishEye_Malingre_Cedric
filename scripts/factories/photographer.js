@@ -68,7 +68,7 @@ export default function photographerFactory(data) {
     article.appendChild(h2);
     article.appendChild(tag);
 
-    return {profil:profil, portrait:port};
+    return { profil: profil, portrait: port };
   }
 
   function getUserPrice() {
@@ -89,6 +89,6 @@ export default function photographerFactory(data) {
     price,
     getUserCardDOM,
     focusUserProfilDOM,
-    getUserPrice
+    getUserPrice,
   };
 }

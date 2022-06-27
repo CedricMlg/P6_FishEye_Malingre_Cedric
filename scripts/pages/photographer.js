@@ -50,7 +50,6 @@ async function displayData(photographers) {
 }
 
 async function displayMedia(medias) {
-
   const mediasSelect = medias.filter(
     (element) => element.photographerId === parseInt(idPhotographer)
   );

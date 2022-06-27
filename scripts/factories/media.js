@@ -1,13 +1,10 @@
-
 class FactoryMedia {
   constructor(data) {
-    const photographerInfo = document.querySelector(
-      ".photographer-bottomInfo"
-    );
+    const photographerInfo = document.querySelector(".photographer-bottomInfo");
     // .hasOwnProperty
     const imageSelect = data.filter((element) => element.video === data.video);
     const videoSelect = data.filter((element) => element.image === data.image);
-    console.log(imageSelect)
+    console.log(imageSelect);
 
     if (!imageSelect.length == 0) {
       new Image(imageSelect);
@@ -35,7 +32,7 @@ class FactoryMedia {
                C512,93.417,453.532,30,376,30z"></path>
   </svg>`;
 
-  photographerInfo.appendChild(likessum);
+    photographerInfo.appendChild(likessum);
   }
 }
 
