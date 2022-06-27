@@ -24,7 +24,7 @@ function closeModal() {
 }
 
 const paramsURL = new URL(document.location).searchParams;
-let idPhotographer = paramsURL.get("id");
+const idPhotographer = paramsURL.get("id");
 
 async function getPhotographers() {
   const response = await fetch("../../data/photographers.json");
@@ -34,6 +34,7 @@ async function getPhotographers() {
 
 async function displayData(photographers) {
   const photographerHeader = document.querySelector(".photographer-header");
+  const photographerInfo = document.querySelector(".photographer-bottomInfo");
 
   const photographerSelect = photographers.find(
     (element) => element.id === parseInt(idPhotographer)
@@ -41,19 +42,20 @@ async function displayData(photographers) {
 
   const photographerModel = photographerFactory(photographerSelect);
   const focusUserProfilDOM = photographerModel.focusUserProfilDOM();
+  const getUserPrice = photographerModel.getUserPrice();
 
   photographerHeader.appendChild(focusUserProfilDOM.profil);
   photographerHeader.appendChild(focusUserProfilDOM.portrait);
+  photographerInfo.appendChild(getUserPrice);
 }
 
-async function displayMedia(photographers) {
-  const photographerWork = document.querySelector(".photographer-work__media");
+async function displayMedia(medias) {
 
-  const photographerSelect = photographers.filter(
+  const mediasSelect = medias.filter(
     (element) => element.photographerId === parseInt(idPhotographer)
   );
 
-  let media = new FactoryMedia(photographerSelect);
+  new FactoryMedia(mediasSelect);
 }
 
 async function init() {

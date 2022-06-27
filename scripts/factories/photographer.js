@@ -48,9 +48,7 @@ export default function photographerFactory(data) {
     const img = document.createElement("img");
 
     profil.classList.add("photographer-profil");
-    profil.id = "photo-headerProfil";
     port.classList.add("photographer-portrait");
-    port.id = "photo-headerPortrait";
     article.classList.add("photographer-profil__block");
     h1.classList.add("photographer-profil__name");
     h2.classList.add("photographer-profil__location");
@@ -73,6 +71,14 @@ export default function photographerFactory(data) {
     return {profil:profil, portrait:port};
   }
 
+  function getUserPrice() {
+    const tarif = document.createElement("div");
+    tarif.classList.add("photographer-bottomInfo__price");
+    tarif.innerHTML = `<p>${price}€ / jour</p>`;
+
+    return tarif;
+  }
+
   return {
     id,
     portrait,
@@ -83,5 +89,6 @@ export default function photographerFactory(data) {
     price,
     getUserCardDOM,
     focusUserProfilDOM,
+    getUserPrice
   };
 }
