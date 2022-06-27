@@ -4,31 +4,143 @@
 
 .photographer {
   &-header {
+    margin: 50px 0 60px 0;
     background-color: $secondary-color2;
     height: 300px;
-    margin: 0 100px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
     height: auto;
-    grid-template-areas:
-      "elem1 elem2 elem3";
-    & > #photographer-profil {
+    grid-template-areas: "elem1 elem2 elem3";
+    & > .photographer-profil {
       grid-area: elem1;
     }
     & > #photo-headerBtn {
       grid-area: elem2;
     }
-    & > #photographer-portrait {
+    & > .photographer-portrait {
       grid-area: elem3;
     }
   }
+  &-blockBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &-profil {
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+    &__name {
+      margin: 0;
+    }
+    &__location {
+      margin: 10px 0 20px 0;
+    }
+    &__tagline {
+      margin: 0;
+    }
+  }
   &-portrait {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     &__picture {
       object-fit: cover;
       border-radius: 50%;
       height: 200px;
       width: 200px;
+    }
+  }
+  &-work {
+    &__block-select {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    &__sortList {
+      padding: 12px;
+      width: auto;
+      margin-left: 15px;
+      background-color: $primary-color1;
+    }
+    &__media {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      grid-gap: 80px 40px;
+    }
+    &__link {
+      display: block;
+      margin: 0;
+    }
+    &__figure {
+      height: 340px;
+      width: 380px;
+      margin: 0 -10px 0 0;
+    }
+    &__preview {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+      border-radius: 8px;
+    }
+    &__caption {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      &-likes {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      &-count {
+        margin: 0 8px 0 0;
+      }
+      &-heart {
+        margin-top: 2px;
+        fill: $primary-color1;
+      }
+    }
+  }
+  &-bottomInfo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    height: auto;
+    grid-template-areas: "elem1 elem2";
+    & > .photographer-bottomInfo__likes {
+      grid-area: elem1;
+    }
+    & > .photographer-bottomInfo__price {
+      grid-area: elem2;
+    }
+    width: 270px;
+    background-color: $secondary-color1;
+    position: fixed;
+    right: 50px;
+    bottom: 0;
+    border-radius: 5px 5px 0 0;
+    padding: 16px 10px;
+    & p {
+      white-space: nowrap;
+      margin: 0;
+    }
+    &__price {
+      display: flex;
+      justify-content: center;
+      margin-right: 10px;
+    }
+    &__likes {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      & p {
+        margin-right: 5px;
+      }
     }
   }
 }
@@ -43,19 +155,14 @@
   justify-content: space-between;
   padding: 35px;
   margin: auto;
-
   & header {
     justify-content: space-between;
     width: 100%;
   }
-
   & header img {
     cursor: pointer;
   }
-
   & header h2 {
-    font-size: 64px;
-    font-weight: normal;
     text-align: center;
   }
 }

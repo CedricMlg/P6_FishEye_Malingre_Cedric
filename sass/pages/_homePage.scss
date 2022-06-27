@@ -3,7 +3,6 @@
   grid-template-columns: 1fr 1fr 1fr;
   gap: 70px;
   margin-top: 100px;
-
   &__block {
     justify-self: center;
     display: flex;
@@ -11,42 +10,21 @@
     align-items: center;
     flex-direction: column;
   }
-
   &__link {
     text-align: center;
-    text-decoration: none;
   }
-
   &__portrait {
     object-fit: cover;
     border-radius: 50%;
     height: 200px;
     width: 200px;
   }
-
   &__name {
-    color: $primary-color2;
-    font-size: 36px;
     margin: 10px 0 2px;
-    font-weight: normal;
   }
-
   &__location {
-    font-size: 19px;
-    color: #901c1c;
     margin: 2px 0;
-    font-weight: normal;
   }
-
-  &__tagline {
-    font-size: 15px;
-  }
-
-  &__price {
-    font-size: 12px;
-    color: #757575;
-  }
-
   & p {
     margin: 2px 0;
   }
