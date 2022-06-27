@@ -22,29 +22,29 @@
     </header>
     <main id="main">
       <div class="photographer-header">
-        <button
-          id="photo-headerBtn"
-          type="button"
-          aria-label="Contact Me"
-          class="photographer-header__button contact-button"
-        >
-          Contactez-moi
-        </button>
+        <div class="photographer-blockBtn">
+          <button
+            id="photo-headerBtn"
+            type="button"
+            aria-label="Contact Me"
+            class="photographer-header__button contact-button"
+          >
+            Contactez-moi
+          </button>
+        </div>
       </div>
       <div class="photographer-work">
-        <label class="photographer-work__sortTxt" for="sort">Trier par</label>
-        <select
-          class="photographer-work__sortList"
-          name="sortBy"
-          id="sort"
-        >
-          <option value="0">Popularité</option>
-          <option value="1">Date</option>
-          <option value="2">Titre</option>
-        </select>
+        <div class="photographer-work__block-select">
+          <label class="photographer-work__sortTxt" for="sort">Trier par</label>
+          <select class="photographer-work__sortList" name="sortBy" id="sort">
+            <option class="photographer-work__sortOption" value="0">Popularité</option>
+            <option class="photographer-work__sortOption" value="1">Date</option>
+            <option class="photographer-work__sortOption" value="2">Titre</option>
+          </select>
+        </div>
         <div class="photographer-work__media"></div>
-        <div class="photographer-bottomInfo"></div>
       </div>
+      <div class="photographer-bottomInfo"></div>
     </main>
     <div id="contact_modal">
       <div class="modal">
@@ -55,6 +55,12 @@
         <form class="modal-form">
           <div>
             <label>Prénom</label>
+            <input />
+            <label>Nom</label>
+            <input />
+            <label>Email</label>
+            <input />
+            <label>Votre message</label>
             <input />
           </div>
           <button
