@@ -79,6 +79,14 @@ export default function photographerFactory(data) {
     return tarif;
   }
 
+  function getUserName() {
+    const modalTitle = document.getElementById("modalTitle");
+    modalTitle.ariaLabel = `Contact me ${name}`;
+    modalTitle.innerHTML = `Contactez-moi ${name}`;
+
+    return modalTitle;
+  }
+
   return {
     id,
     portrait,
@@ -90,5 +98,6 @@ export default function photographerFactory(data) {
     getUserCardDOM,
     focusUserProfilDOM,
     getUserPrice,
+    getUserName,
   };
 }

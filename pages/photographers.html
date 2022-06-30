@@ -20,14 +20,14 @@
         />
       </a>
     </header>
-    <main id="main">
+    <main id="main" aria-hidden="false">
       <div class="photographer-header">
         <div class="photographer-blockBtn">
           <button
             id="photo-headerBtn"
             type="button"
             aria-label="Contact Me"
-            class="photographer-header__button contact-button"
+            class="photographer-header__button contact-button modal-open"
           >
             Contactez-moi
           </button>
@@ -36,8 +36,8 @@
       <div class="photographer-work">
         <div class="photographer-work__block-select">
           <label class="photographer-work__sortTxt" for="sort">Trier par</label>
-          <select class="photographer-work__sortList" name="sortBy" id="sort">
-            <option class="photographer-work__sortOption" value="0">
+          <select class="photographer-work__sortList" aria-label="Order by" name="sortBy" id="sort">
+            <option aria-label="popularity" class="photographer-work__sortOption" value="0">
               Popularité
             </option>
             <option class="photographer-work__sortOption" value="1">
@@ -52,24 +52,37 @@
       </div>
       <div class="photographer-bottomInfo"></div>
     </main>
-    <div id="contact_modal">
-      <div class="modal">
-        <header>
-          <h2>Contactez-moi</h2>
-          <img class="modal__close-button" src="../assets/icons/close.svg" />
+    <div
+      id="contact_modal"
+      role="dialog"
+      aria-labelledby="modalTitle"
+    >
+      <div class="modal-bg modal-close"></div>
+      <div class="modal-container">
+        <header class="modal-header">
+          <h2 class="modal-title" id="modalTitle"></h2>
+          <button class="modal__close-button modal-close">
+            <img
+              aria-label="Close Contact form"
+              src="../assets/icons/close.svg"
+            />
+          </button>
         </header>
         <form class="modal-form">
           <div>
-            <label>Prénom</label>
-            <input />
-            <label>Nom</label>
-            <input />
-            <label>Email</label>
-            <input />
-            <label>Votre message</label>
-            <input />
+            <label aria-label="First-name" for="First-name">Prénom</label>
+            <input type="text" id="First-name" name="First name" />
+            <label aria-label="Last-name" for="Last-name">Nom</label>
+            <input type="text" id="Last-name" name="Last name" />
+            <label aria-label="Email" for="Email">Email</label>
+            <input type="email" id="Email" name="Email" />
+            <label aria-label="Your-message" for="Your-message"
+              >Votre message</label
+            >
+            <input type="text" id="Your-message" name="Your message" />
           </div>
           <button
+            id="submit-form"
             type="button"
             aria-label="Send"
             class="modal-form__button contact-button"

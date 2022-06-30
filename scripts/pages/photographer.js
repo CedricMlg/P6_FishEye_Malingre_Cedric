@@ -2,26 +2,60 @@ import photographerFactory from "../factories/photographer.js";
 import { FactoryMedia } from "../factories/media.js";
 import "./../../sass/main.scss";
 
-const openContact = document.querySelectorAll(".photographer-header__button");
-const closeContact = document.querySelectorAll(".modal__close-button");
+const modal = document.getElementById("contact_modal");
+const modalOpen = document.querySelectorAll(".modal-open");
+const modalClose = document.querySelectorAll(".modal-close");
+const submitBtn = document.getElementById("submit-form");
+let previousActiveElement;
 
-openContact.forEach((launchBtn) =>
-  launchBtn.addEventListener("click", displayModal)
-);
+const KEYCODE = {
+  ESC: 27,
+};
 
-closeContact.forEach((closeBtn) =>
-  closeBtn.addEventListener("click", closeModal)
-);
+modalOpen.forEach((trigger) => trigger.addEventListener("click", openModal));
 
-function displayModal() {
-  const modal = document.getElementById("contact_modal");
-  modal.style.display = "block";
+modalClose.forEach((trigger) => trigger.addEventListener("click", closeModal));
+
+function openModal() {
+  document.addEventListener("keydown", checkCloseModal);
+  previousActiveElement = document.activeElement;
+
+  Array.from(document.body.children).forEach((child) => {
+    if (child !== modal) {
+      child.inert = true;
+    }
+  });
+  modal.classList.add("active");
+
+  modal.querySelector(".modal__close-button").focus();
+}
+
+function checkCloseModal(e) {
+  if (e.keyCode === KEYCODE.ESC) {
+    closeModal();
+  }
 }
 
 function closeModal() {
-  const modal = document.getElementById("contact_modal");
-  modal.style.display = "none";
+  document.removeEventListener("keydown", checkCloseModal);
+
+  Array.from(document.body.children).forEach((child) => {
+    if (child !== modal) {
+      child.inert = false;
+    }
+  });
+  modal.classList.remove("active");
+
+  previousActiveElement.focus();
 }
+
+submitBtn.addEventListener("click", (envoi) => {
+  let prenom = document.getElementById("First-name").value;
+  let nom = document.getElementById("Last-name").value;
+  let email = document.getElementById("Email").value;
+  let message = document.getElementById("Your-message").value;
+  console.log(prenom, nom, email, message);
+});
 
 const paramsURL = new URL(document.location).searchParams;
 const idPhotographer = paramsURL.get("id");
@@ -47,6 +81,7 @@ async function displayData(photographers) {
   photographerHeader.appendChild(focusUserProfilDOM.profil);
   photographerHeader.appendChild(focusUserProfilDOM.portrait);
   photographerInfo.appendChild(getUserPrice);
+  photographerModel.getUserName();
 }
 
 async function displayMedia(medias) {
@@ -63,7 +98,13 @@ async function displayMedia(medias) {
     const mediaContent = document.createElement("a");
     mediaContent.href = "";
     mediaContent.classList.add("photographer-work__link");
-    mediaContent.innerHTML = `<figure class="photographer-work__figure">${new FactoryMedia(media).create()}<figcaption class="photographer-work__caption"><div class="photographer-work__caption-text">${media.title}</div><div class="photographer-work__caption-likes"><p class="photographer-work__caption-count">${media.likes}</p><svg class="photographer-work__caption-heart heart" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+    mediaContent.innerHTML = `<figure class="photographer-work__figure">${new FactoryMedia(
+      media
+    ).create()}<figcaption class="photographer-work__caption"><div class="photographer-work__caption-text">${
+      media.title
+    }</div><div class="photographer-work__caption-likes"><p class="photographer-work__caption-count">${
+      media.likes
+    }</p><svg class="photographer-work__caption-heart heart" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
     <path d="M376,30c-27.783,0-53.255,8.804-75.707,26.168c-21.525,16.647-35.856,37.85-44.293,53.268
                c-8.437-15.419-22.768-36.621-44.293-53.268C189.255,38.804,163.783,30,136,30C58.468,30,0,93.417,0,177.514
                c0,90.854,72.943,153.015,183.369,247.118c18.752,15.981,40.007,34.095,62.099,53.414C248.38,480.596,252.12,482,256,482
@@ -74,7 +115,7 @@ async function displayMedia(medias) {
   }
   const likessum = document.createElement("div");
   likessum.classList.add("photographer-bottomInfo__likes");
-  likessum.innerHTML = `<p>${sum}</p> <svg class="photographer-bottomInfo__likes-heart heart" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  likessum.innerHTML = `<p>${sum}</p> <svg class="photographer-bottomInfo__likes-heart heart" aria-label="likes" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
     <path d="M376,30c-27.783,0-53.255,8.804-75.707,26.168c-21.525,16.647-35.856,37.85-44.293,53.268
                c-8.437-15.419-22.768-36.621-44.293-53.268C189.255,38.804,163.783,30,136,30C58.468,30,0,93.417,0,177.514
                c0,90.854,72.943,153.015,183.369,247.118c18.752,15.981,40.007,34.095,62.099,53.414C248.38,480.596,252.12,482,256,482
@@ -91,5 +132,3 @@ async function init() {
 }
 
 init();
-
-//Mettre le code JavaScript lié à la page photographer.html

@@ -84,8 +84,8 @@ h1 {
 }
 
 .modal {
-  & header h2 {
-    font-size: 64px;
+  &-title {
+    font-size: 50px;
     font-weight: normal;
   }
 }
