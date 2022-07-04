@@ -20,8 +20,10 @@ submitBtn.addEventListener("click", (envoi) => {
   console.log(prenom, nom, email, message);
 });
 
+
+
 /**
- * When the modal is opened, the focus is set to the close button.
+ * When the modal is opened, the user is unable to scroll the page, and the modal is focused.
  */
 function openModal() {
   document.addEventListener("keydown", checkCloseModal);
@@ -33,6 +35,7 @@ function openModal() {
     }
   });
   modal.classList.add("active");
+  document.body.style.overflowY = "hidden";
 
   modal.querySelector(".modal__close-button").focus();
 }
@@ -47,10 +50,11 @@ function checkCloseModal(e) {
   }
 }
 
+
 /**
  * It removes the event listener that listens for the escape key, removes the inert attribute from all
- * the elements in the body except the modal, removes the active class from the modal, and then focuses
- * on the previous active element.
+ * the elements in the body except the modal, removes the active class from the modal, and sets the
+ * overflowY property of the body to an empty string.
  */
 function closeModal() {
   document.removeEventListener("keydown", checkCloseModal);
@@ -61,6 +65,7 @@ function closeModal() {
     }
   });
   modal.classList.remove("active");
+  document.body.style.overflowY = "";
 
   previousActiveElement.focus();
 }
