@@ -16,5 +16,8 @@
   "devDependencies": {
     "sass": "^1.52.3",
     "vite": "^2.9.9"
+  },
+  "dependencies": {
+    "jsdoc": "^3.6.10"
   }
 }
