@@ -1,6 +1,10 @@
 export default function photographerFactory(data) {
   const { id, portrait, name, city, country, tagline, price } = data;
 
+  /**
+   * It creates a DOM element for a photographer card
+   * @returns the article element with all the child elements.
+   */
   function getUserCardDOM() {
     const article = document.createElement("article");
     const lien = document.createElement("a");
@@ -38,6 +42,10 @@ export default function photographerFactory(data) {
     return article;
   }
 
+  /**
+   * It creates a DOM element for the photographer's profile
+   * @returns An object with two properties, profil and portrait.
+   */
   function focusUserProfilDOM() {
     const profil = document.createElement("div");
     const port = document.createElement("div");
@@ -71,6 +79,10 @@ export default function photographerFactory(data) {
     return { profil: profil, portrait: port };
   }
 
+  /**
+   * It creates a div element, adds a class to it, and then adds some text to it
+   * @returns The function getUserPrice() returns the price of the photographer.
+   */
   function getUserPrice() {
     const tarif = document.createElement("div");
     tarif.classList.add("photographer-bottomInfo__price");
@@ -79,6 +91,12 @@ export default function photographerFactory(data) {
     return tarif;
   }
 
+  /**
+   * It gets the element with the id "modalTitle", sets its ariaLabel attribute to "Contact me" + the
+   * value of the variable name, and then sets its innerHTML to "Contactez-moi" + the value of the
+   * variable name
+   * @returns The modalTitle element.
+   */
   function getUserName() {
     const modalTitle = document.getElementById("modalTitle");
     modalTitle.ariaLabel = `Contact me ${name}`;

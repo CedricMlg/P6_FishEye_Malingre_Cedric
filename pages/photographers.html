@@ -36,8 +36,13 @@
       <div class="photographer-work">
         <div class="photographer-work__block-select">
           <label class="photographer-work__sortTxt" for="sort">Trier par</label>
-          <select class="photographer-work__sortList" aria-label="Order by" name="sortBy" id="sort">
-            <option aria-label="popularity" class="photographer-work__sortOption" value="0">
+          <select
+            class="photographer-work__sortList"
+            aria-label="Order by"
+            name="sortBy"
+            id="sort"
+          >
+            <option class="photographer-work__sortOption" value="0">
               Popularité
             </option>
             <option class="photographer-work__sortOption" value="1">
@@ -52,11 +57,7 @@
       </div>
       <div class="photographer-bottomInfo"></div>
     </main>
-    <div
-      id="contact_modal"
-      role="dialog"
-      aria-labelledby="modalTitle"
-    >
+    <div id="contact_modal" role="dialog" aria-labelledby="modalTitle">
       <div class="modal-bg modal-close"></div>
       <div class="modal-container">
         <header class="modal-header">
@@ -90,6 +91,25 @@
             Envoyer
           </button>
         </form>
+      </div>
+    </div>
+    <div id="lightbox" role="dialog" aria-labelledby="">
+      <div class="lightbox-bg lightbox-close"></div>
+      <div class="lightbox-container">
+        <div>
+          <button class="lightbox__close-button lightbox-close">
+            <img aria-label="Close dialog" src="../assets/icons/close.svg" />
+          </button>
+        </div>
+        <div class="lightbox__img-box">
+          <div class="lightbox__slide-prev">
+            <i></i>
+          </div>
+          <div class="lightbox__slide-next">
+            <i></i>
+          </div>
+          <figure></figure>
+        </div>
       </div>
     </div>
     <script type="module" src="../scripts/pages/photographer.js"></script>
