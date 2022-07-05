@@ -70,17 +70,29 @@
           </button>
         </header>
         <form class="modal-form">
-          <div>
-            <label aria-label="First-name" for="First-name">Prénom</label>
-            <input type="text" id="First-name" name="First name" />
-            <label aria-label="Last-name" for="Last-name">Nom</label>
-            <input type="text" id="Last-name" name="Last name" />
-            <label aria-label="Email" for="Email">Email</label>
-            <input type="email" id="Email" name="Email" />
-            <label aria-label="Your-message" for="Your-message"
-              >Votre message</label
-            >
-            <input type="text" id="Your-message" name="Your message" />
+          <div class="modal-form__block">
+            <div class="modal-form__data" id="formFirst" data-error-visible="">
+              <label aria-label="First-name" for="First-name">Prénom</label>
+              <input type="text" id="First-name" name="First name" />
+              <p class="modal-form__alert" id="formFAlert"></p>
+            </div>
+            <div class="modal-form__data" id="formLast" data-error-visible="">
+              <label aria-label="Last-name" for="Last-name">Nom</label>
+              <input type="text" id="Last-name" name="Last name" />
+              <p class="modal-form__alert" id="formLAlert"></p>
+            </div>
+            <div class="modal-form__data" id="formEmail" data-error-visible="">
+              <label aria-label="Email" for="Email">Email</label>
+              <input type="email" id="Email" name="Email" />
+              <p class="modal-form__alert" id="formEAlert"></p>
+            </div>
+            <div class="modal-form__data" id="formMsg" data-error-visible="">
+              <label aria-label="Your-message" for="Your-message"
+                >Votre message</label
+              >
+              <input type="text" id="Your-message" name="Your message" />
+              <p class="modal-form__alert" id="formMAlert"></p>
+            </div>
           </div>
           <button
             id="submit-form"
