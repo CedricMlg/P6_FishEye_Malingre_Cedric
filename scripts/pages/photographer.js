@@ -1,6 +1,7 @@
 import photographerFactory from "../factories/photographer.js";
 import { FactoryMedia } from "../factories/media.js";
 import { Form } from "../utils/contactForm.js";
+import { Lightbox } from "../utils/lightbox"
 import "./../../sass/main.scss";
 
 const submitBtn = document.getElementById("submit-form");
@@ -89,7 +90,7 @@ function closeModal() {
  * When the lightbox is opened, the user can't scroll the page, and the lightbox is the only thing that
  * can be interacted with.
  */
-function openLightbox() {
+function openLightbox(data) {
   document.addEventListener("keydown", checkCloseLightbox);
   previousActiveElement = document.activeElement;
 
@@ -167,8 +168,9 @@ async function displayData(photographers) {
   photographerModel.getUserName();
 }
 
+
 /**
- * When the user clicks on a link, the function openLightbox is called.
+ * It creates a div element, adds a class to it, and then appends it to the DOM
  * @param medias - an array of objects
  */
 async function displayMedia(medias) {
@@ -200,10 +202,15 @@ async function displayMedia(medias) {
   </svg>`;
   photographerInfo.appendChild(likessum);
 
-  const lightboxOpen = document.querySelectorAll(".photographer-work__link");
-  lightboxOpen.forEach((trigger) =>
-    trigger.addEventListener("click", openLightbox)
-  );
+  const imageContainer = document.querySelectorAll(".lightbox-open");
+
+  for (let i = 0; i < imageContainer.length; i++) {
+    imageContainer[i].onclick = () => {
+      openLightbox();
+      let lightbox = new Lightbox(imageContainer[i]);
+      lightbox.displayContent();
+    }
+  }
 }
 
 /**

@@ -89,3 +89,12 @@ h1 {
     font-weight: normal;
   }
 }
+
+.lightbox {
+  &__block {
+    &-caption {
+      font-size: 22px;
+      color: $primary-color1;
+    }
+  }
+}

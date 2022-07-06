@@ -109,18 +109,70 @@
       <div class="lightbox-bg lightbox-close"></div>
       <div class="lightbox-container">
         <div>
-          <button class="lightbox__close-button lightbox-close">
-            <img aria-label="Close dialog" src="../assets/icons/close.svg" />
+          <button
+            aria-label="Close dialog"
+            aria-expanded="false"
+            class="lightbox__close-button lightbox-close"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              width="40"
+              height="40"
+              viewBox="0 0 42 42"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M42 4.23L37.77 0L21 16.77L4.23 0L0 4.23L16.77 21L0 37.77L4.23 42L21 25.23L37.77 42L42 37.77L25.23 21L42 4.23Z"
+              />
+            </svg>
           </button>
         </div>
-        <div class="lightbox__img-box">
-          <div class="lightbox__slide-prev">
-            <i></i>
-          </div>
-          <div class="lightbox__slide-next">
-            <i></i>
-          </div>
-          <figure></figure>
+        <div class="lightbox__block">
+          <a
+            href="javascript:;"
+            aria-label="Previous image"
+            class="lightbox__block-slide prev"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              width="40"
+              height="40"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M19 6.25l-1.5-1.5-7.5 7.5-7.5-7.5L1 6.25l9 9 9-9z" />
+            </svg>
+          </a>
+          <a
+            href="javascript:;"
+            aria-label="Next image"
+            class="lightbox__block-slide next"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              width="40"
+              height="40"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M19 6.25l-1.5-1.5-7.5 7.5-7.5-7.5L1 6.25l9 9 9-9z" />
+            </svg>
+          </a>
+          <figure>
+            <div class="lightbox__block-imgBox">
+              <img
+                class="lightbox__block-img"
+                src="../assets/images/Animals_Rainbow.jpg"
+                alt=""
+              />
+            </div>
+            <figcaption>
+              <p class="lightbox__block-caption">titre image</p>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </div>
