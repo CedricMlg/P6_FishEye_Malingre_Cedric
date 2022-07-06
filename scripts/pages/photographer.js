@@ -7,8 +7,9 @@ const submitBtn = document.getElementById("submit-form");
 const modal = document.getElementById("contact_modal");
 const modalOpen = document.querySelectorAll(".modal-open");
 const modalClose = document.querySelectorAll(".modal-close");
+const lightbox = document.getElementById("lightbox");
+const lightboxClose = document.querySelectorAll(".lightbox-close");
 let previousActiveElement;
-
 const KEYCODE = {
   ESC: 27,
 };
@@ -19,6 +20,10 @@ const idPhotographer = paramsURL.get("id");
 modalOpen.forEach((trigger) => trigger.addEventListener("click", openModal));
 
 modalClose.forEach((trigger) => trigger.addEventListener("click", closeModal));
+
+lightboxClose.forEach((trigger) =>
+  trigger.addEventListener("click", closeLightbox)
+);
 
 submitBtn.addEventListener("click", (envoi) => {
   let prenom = document.getElementById("First-name").value;
@@ -81,6 +86,54 @@ function closeModal() {
 }
 
 /**
+ * When the lightbox is opened, the user can't scroll the page, and the lightbox is the only thing that
+ * can be interacted with.
+ */
+function openLightbox() {
+  document.addEventListener("keydown", checkCloseLightbox);
+  previousActiveElement = document.activeElement;
+
+  Array.from(document.body.children).forEach((child) => {
+    if (child !== lightbox) {
+      child.inert = true;
+    }
+  });
+  lightbox.classList.add("active");
+  document.body.style.overflowY = "hidden";
+
+  lightbox.querySelector(".lightbox__close-button").focus();
+}
+
+/**
+ * If the key pressed is the escape key, then close the lightbox
+ * @param e - The event object
+ */
+function checkCloseLightbox(e) {
+  if (e.keyCode === KEYCODE.ESC) {
+    closeLightbox();
+  }
+}
+
+/**
+ * It removes the event listener that listens for the escape key, removes the inert attribute from all
+ * elements except the lightbox, removes the active class from the lightbox, and sets the overflowY
+ * property of the body to an empty string.
+ */
+function closeLightbox() {
+  document.removeEventListener("keydown", checkCloseLightbox);
+
+  Array.from(document.body.children).forEach((child) => {
+    if (child !== lightbox) {
+      child.inert = false;
+    }
+  });
+  lightbox.classList.remove("active");
+  document.body.style.overflowY = "";
+
+  previousActiveElement.focus();
+}
+
+/**
  * It fetches the data from the JSON file and returns it as an object.
  * @returns An object with a property called photographers.
  */
@@ -115,8 +168,7 @@ async function displayData(photographers) {
 }
 
 /**
- * It takes an array of objects, filters it based on a value, then loops through the filtered array and
- * adds the value of a property to a variable.
+ * When the user clicks on a link, the function openLightbox is called.
  * @param medias - an array of objects
  */
 async function displayMedia(medias) {
@@ -131,8 +183,9 @@ async function displayMedia(medias) {
   for (const media of mediasSelect) {
     sum += media.likes;
     const mediaContent = document.createElement("a");
-    mediaContent.href = "";
+    mediaContent.href = "javascript:;";
     mediaContent.classList.add("photographer-work__link");
+    mediaContent.classList.add("lightbox-open");
     mediaContent.innerHTML = new FactoryMedia(media).createMedia();
     photographerWork.appendChild(mediaContent);
   }
@@ -146,6 +199,11 @@ async function displayMedia(medias) {
                C512,93.417,453.532,30,376,30z"></path>
   </svg>`;
   photographerInfo.appendChild(likessum);
+
+  const lightboxOpen = document.querySelectorAll(".photographer-work__link");
+  lightboxOpen.forEach((trigger) =>
+    trigger.addEventListener("click", openLightbox)
+  );
 }
 
 /**

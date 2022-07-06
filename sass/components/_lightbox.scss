@@ -1,0 +1,90 @@
+#lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  #lightbox.active {
+    display: block;
+  }
+  
+  .lightbox {
+    &-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #86868665;
+    }
+    &-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 5px;
+      background-color: $secondary-color1;
+      width: 50%;
+      max-width: 500px;
+      @include flex-alignCenter;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 35px;
+      margin: auto;
+    }
+    &-header {
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      height: 100%;
+    }
+    &-title {
+      margin: 0;
+    }
+    &__close {
+      &-button {
+        margin-top: 15px;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+      }
+    }
+    &-form {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      & div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: self-start;
+        & :nth-child(8) {
+          height: 150px;
+        }
+      }
+      &__data {
+        margin: 5px 0;
+        &[data-error-visible="true"] input {
+          border: 2px solid $primary-color1;
+        }
+      }
+      & label {
+        color: #312e2e;
+        font-size: 36px;
+      }
+      & input {
+        width: 100%;
+        height: 68px;
+        border: none;
+        border-radius: 5px;
+        padding: 0 0 0 10px;
+      }
+      &__alert {
+        color: $primary-color1;
+        font-size: 18px;
+        margin: 10px 0 0 0;
+      }
+    }
+  }
