@@ -44,6 +44,13 @@ class FactoryMedia {
                C512,93.417,453.532,30,376,30z"></path>
   </svg></div></figcaption></figure>`;
   }
+
+  createMediaLightbox() {
+    return `<div class="lightbox__block-imgBox">${this.media.create()}</div>
+    <figcaption><p class="lightbox__block-caption">${
+      this.media.data.title
+    }</p></figcaption>`;
+  }
 }
 
 export { FactoryMedia };

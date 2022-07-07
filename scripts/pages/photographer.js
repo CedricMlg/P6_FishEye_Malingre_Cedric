@@ -1,7 +1,6 @@
 import photographerFactory from "../factories/photographer.js";
 import { FactoryMedia } from "../factories/media.js";
 import { Form } from "../utils/contactForm.js";
-import { Lightbox } from "../utils/lightbox"
 import "./../../sass/main.scss";
 
 const submitBtn = document.getElementById("submit-form");
@@ -168,7 +167,6 @@ async function displayData(photographers) {
   photographerModel.getUserName();
 }
 
-
 /**
  * It creates a div element, adds a class to it, and then appends it to the DOM
  * @param medias - an array of objects
@@ -176,6 +174,7 @@ async function displayData(photographers) {
 async function displayMedia(medias) {
   const photographerWork = document.querySelector(".photographer-work__media");
   const photographerInfo = document.querySelector(".photographer-bottomInfo");
+  const lightboxPreview = document.querySelector(".lightbox__block-preview");
 
   const mediasSelect = medias.filter(
     (element) => element.photographerId === parseInt(idPhotographer)
@@ -185,10 +184,15 @@ async function displayMedia(medias) {
   for (const media of mediasSelect) {
     sum += media.likes;
     const mediaContent = document.createElement("a");
-    mediaContent.href = "javascript:;";
     mediaContent.classList.add("photographer-work__link");
     mediaContent.classList.add("lightbox-open");
     mediaContent.innerHTML = new FactoryMedia(media).createMedia();
+    mediaContent.addEventListener("click", function (e) {
+      e.preventDefault();
+      openLightbox();
+      let lightbox = new FactoryMedia(media);
+      lightboxPreview.innerHTML = lightbox.createMediaLightbox();
+    });
     photographerWork.appendChild(mediaContent);
   }
   const likessum = document.createElement("div");
@@ -201,16 +205,6 @@ async function displayMedia(medias) {
                C512,93.417,453.532,30,376,30z"></path>
   </svg>`;
   photographerInfo.appendChild(likessum);
-
-  const imageContainer = document.querySelectorAll(".lightbox-open");
-
-  for (let i = 0; i < imageContainer.length; i++) {
-    imageContainer[i].onclick = () => {
-      openLightbox();
-      let lightbox = new Lightbox(imageContainer[i]);
-      lightbox.displayContent();
-    }
-  }
 }
 
 /**
