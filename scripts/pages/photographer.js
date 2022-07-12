@@ -168,14 +168,15 @@ async function displayData(photographers) {
 }
 
 /**
- * It creates a div element, adds a class to it, and then appends it to the DOM
+ * When the user clicks on a media, the lightbox opens and the media is displayed in the lightbox. The
+ * user can then click on the next and previous buttons to navigate through the media.
  * @param medias - an array of objects
  */
 async function displayMedia(medias) {
   const photographerWork = document.querySelector(".photographer-work__media");
   const photographerInfo = document.querySelector(".photographer-bottomInfo");
   const lightboxPreview = document.querySelector(".lightbox__block-preview");
-  const lightboxBtn = document.querySelector(".lightbox__block-slide")
+  const lightboxBtn = document.querySelector(".lightbox__block-slide");
   const lightboxNext = document.querySelector(".next");
   const lightboxPrev = document.querySelector(".prev");
 
@@ -202,21 +203,25 @@ async function displayMedia(medias) {
   lightboxPrev.addEventListener("click", function (e) {
     e.preventDefault();
     if (lightboxBtn.dataset.mediaPosition == 0) {
-      lightboxBtn.dataset.mediaPosition = mediasSelect.length-1;
+      lightboxBtn.dataset.mediaPosition = mediasSelect.length - 1;
     } else {
       lightboxBtn.dataset.mediaPosition--;
     }
-    let lightbox = new FactoryMedia(mediasSelect[lightboxBtn.dataset.mediaPosition]);
+    let lightbox = new FactoryMedia(
+      mediasSelect[lightboxBtn.dataset.mediaPosition]
+    );
     lightboxPreview.innerHTML = lightbox.createMediaLightbox();
   });
   lightboxNext.addEventListener("click", function (e) {
     e.preventDefault();
-    if (lightboxBtn.dataset.mediaPosition == mediasSelect.length-1) {
+    if (lightboxBtn.dataset.mediaPosition == mediasSelect.length - 1) {
       lightboxBtn.dataset.mediaPosition = 0;
     } else {
       lightboxBtn.dataset.mediaPosition++;
     }
-    let lightbox = new FactoryMedia(mediasSelect[lightboxBtn.dataset.mediaPosition]);
+    let lightbox = new FactoryMedia(
+      mediasSelect[lightboxBtn.dataset.mediaPosition]
+    );
     lightboxPreview.innerHTML = lightbox.createMediaLightbox();
   });
   const likessum = document.createElement("div");

@@ -104,6 +104,138 @@
     
 
     
+    <h4 class="name" id="checkCloseLightbox"><span class="type-signature"></span>checkCloseLightbox<span class="signature">(e)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    If the key pressed is the escape key, then close the lightbox
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The event object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line111">line 111</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="checkCloseModal"><span class="type-signature"></span>checkCloseModal<span class="signature">(e)</span><span class="type-signature"></span></h4>
     
 
@@ -200,7 +332,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_contactForm.js.html">utils/contactForm.js</a>, <a href="utils_contactForm.js.html#line44">line 44</a>
+        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line63">line 63</a>
     </li></ul></dd>
     
 
@@ -236,7 +368,7 @@
     
 
     
-    <h4 class="name" id="closeModal"><span class="type-signature"></span>closeModal<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="closeLightbox"><span class="type-signature"></span>closeLightbox<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -244,7 +376,7 @@
 
 
 <div class="description">
-    It removes the event listener that listens for the escape key, removes the inert attribute from allthe elements in the body except the modal, removes the active class from the modal, and then focuseson the previous active element.
+    It removes the event listener that listens for the escape key, removes the inert attribute from allelements except the lightbox, removes the active class from the lightbox, and sets the overflowYproperty of the body to an empty string.
 </div>
 
 
@@ -288,7 +420,95 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_contactForm.js.html">utils/contactForm.js</a>, <a href="utils_contactForm.js.html#line55">line 55</a>
+        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line122">line 122</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="closeModal"><span class="type-signature"></span>closeModal<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It removes the event listener that listens for the escape key, removes the inert attribute from allthe elements in the body except the modal, removes the active class from the modal, and sets theoverflowY property of the body to an empty string.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -553,7 +773,7 @@ then appending the DOM element for each photographer to the DOM
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line25">line 25</a>
+        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line152">line 152</a>
     </li></ul></dd>
     
 
@@ -597,7 +817,7 @@ then appending the DOM element for each photographer to the DOM
 
 
 <div class="description">
-    It takes an array of objects, filters it based on a value, then loops through the filtered array andadds the value of a property to a variable.
+    When the user clicks on a media, the lightbox opens and the media is displayed in the lightbox. Theuser can then click on the next and previous buttons to navigate through the media.
 </div>
 
 
@@ -685,7 +905,7 @@ then appending the DOM element for each photographer to the DOM
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line48">line 48</a>
+        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line175">line 175</a>
     </li></ul></dd>
     
 
@@ -871,7 +1091,7 @@ then appending the DOM element for each photographer to the DOM
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line13">line 13</a>
+        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line140">line 140</a>
     </li></ul></dd>
     
 
@@ -1059,7 +1279,7 @@ displayData function
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line84">line 84</a>
+        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line246">line 246</a>
     </li></ul></dd>
     
 
@@ -1095,7 +1315,7 @@ displayData function
     
 
     
-    <h4 class="name" id="openModal"><span class="type-signature"></span>openModal<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="openLightbox"><span class="type-signature"></span>openLightbox<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -1103,7 +1323,7 @@ displayData function
 
 
 <div class="description">
-    When the modal is opened, the focus is set to the close button.
+    When the lightbox is opened, the user can't scroll the page, and the lightbox is the only thing thatcan be interacted with.
 </div>
 
 
@@ -1147,7 +1367,95 @@ displayData function
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_contactForm.js.html">utils/contactForm.js</a>, <a href="utils_contactForm.js.html#line26">line 26</a>
+        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="openModal"><span class="type-signature"></span>openModal<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    When the modal is opened, the user is unable to scroll the page, and the modal is focused.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pages_photographer.js.html">pages/photographer.js</a>, <a href="pages_photographer.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -1193,13 +1501,13 @@ displayData function
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="FactoryMedia.html">FactoryMedia</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkCloseModal">checkCloseModal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#displayData">displayData</a></li><li><a href="global.html#displayMedia">displayMedia</a></li><li><a href="global.html#getPhotographers">getPhotographers</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#openModal">openModal</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="FactoryMedia.html">FactoryMedia</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkCloseLightbox">checkCloseLightbox</a></li><li><a href="global.html#checkCloseModal">checkCloseModal</a></li><li><a href="global.html#closeLightbox">closeLightbox</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#displayData">displayData</a></li><li><a href="global.html#displayMedia">displayMedia</a></li><li><a href="global.html#getPhotographers">getPhotographers</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#openLightbox">openLightbox</a></li><li><a href="global.html#openModal">openModal</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon Jul 04 2022 14:13:22 GMT+0200 (heure d’été d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Jul 12 2022 17:41:02 GMT+0200 (heure d’été d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -45,6 +45,10 @@ class FactoryMedia {
   </svg></div></figcaption></figure>`;
   }
 
+  /**
+   * Create a new div element, add the media object to it, and then add a caption to it.
+   * @returns The return value is a string.
+   */
   createMediaLightbox() {
     return `<div class="lightbox__block-imgBox">${this.media.create(true)}</div>
     <figcaption><p class="lightbox__block-caption">${

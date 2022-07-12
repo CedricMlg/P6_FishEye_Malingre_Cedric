@@ -28,11 +28,138 @@
         <article>
             <pre class="prettyprint source linenums"><code>import photographerFactory from "../factories/photographer.js";
 import { FactoryMedia } from "../factories/media.js";
-import "../utils/contactForm.js";
+import { Form } from "../utils/contactForm.js";
 import "./../../sass/main.scss";
+
+const submitBtn = document.getElementById("submit-form");
+const modal = document.getElementById("contact_modal");
+const modalOpen = document.querySelectorAll(".modal-open");
+const modalClose = document.querySelectorAll(".modal-close");
+const lightbox = document.getElementById("lightbox");
+const lightboxClose = document.querySelectorAll(".lightbox-close");
+let previousActiveElement;
+const KEYCODE = {
+  ESC: 27,
+};
 
 const paramsURL = new URL(document.location).searchParams;
 const idPhotographer = paramsURL.get("id");
+
+modalOpen.forEach((trigger) => trigger.addEventListener("click", openModal));
+
+modalClose.forEach((trigger) => trigger.addEventListener("click", closeModal));
+
+lightboxClose.forEach((trigger) =>
+  trigger.addEventListener("click", closeLightbox)
+);
+
+submitBtn.addEventListener("click", (envoi) => {
+  let prenom = document.getElementById("First-name").value;
+  let nom = document.getElementById("Last-name").value;
+  let email = document.getElementById("Email").value;
+  let message = document.getElementById("Your-message").value;
+  let form = new Form(prenom, nom, email, message);
+  form.checkPrenom();
+  form.checkNom();
+  form.checkEmail();
+  form.checkMessage();
+  form.checkValid();
+});
+
+/**
+ * When the modal is opened, the user is unable to scroll the page, and the modal is focused.
+ */
+function openModal() {
+  document.addEventListener("keydown", checkCloseModal);
+  previousActiveElement = document.activeElement;
+
+  Array.from(document.body.children).forEach((child) => {
+    if (child !== modal) {
+      child.inert = true;
+    }
+  });
+  modal.classList.add("active");
+  document.body.style.overflowY = "hidden";
+
+  modal.querySelector(".modal__close-button").focus();
+}
+
+/**
+ * If the key pressed is the escape key, then close the modal
+ * @param e - The event object
+ */
+function checkCloseModal(e) {
+  if (e.keyCode === KEYCODE.ESC) {
+    closeModal();
+  }
+}
+
+/**
+ * It removes the event listener that listens for the escape key, removes the inert attribute from all
+ * the elements in the body except the modal, removes the active class from the modal, and sets the
+ * overflowY property of the body to an empty string.
+ */
+function closeModal() {
+  document.removeEventListener("keydown", checkCloseModal);
+
+  Array.from(document.body.children).forEach((child) => {
+    if (child !== modal) {
+      child.inert = false;
+    }
+  });
+  modal.classList.remove("active");
+  document.body.style.overflowY = "";
+
+  previousActiveElement.focus();
+}
+
+/**
+ * When the lightbox is opened, the user can't scroll the page, and the lightbox is the only thing that
+ * can be interacted with.
+ */
+function openLightbox(data) {
+  document.addEventListener("keydown", checkCloseLightbox);
+  previousActiveElement = document.activeElement;
+
+  Array.from(document.body.children).forEach((child) => {
+    if (child !== lightbox) {
+      child.inert = true;
+    }
+  });
+  lightbox.classList.add("active");
+  document.body.style.overflowY = "hidden";
+
+  lightbox.querySelector(".lightbox__close-button").focus();
+}
+
+/**
+ * If the key pressed is the escape key, then close the lightbox
+ * @param e - The event object
+ */
+function checkCloseLightbox(e) {
+  if (e.keyCode === KEYCODE.ESC) {
+    closeLightbox();
+  }
+}
+
+/**
+ * It removes the event listener that listens for the escape key, removes the inert attribute from all
+ * elements except the lightbox, removes the active class from the lightbox, and sets the overflowY
+ * property of the body to an empty string.
+ */
+function closeLightbox() {
+  document.removeEventListener("keydown", checkCloseLightbox);
+
+  Array.from(document.body.children).forEach((child) => {
+    if (child !== lightbox) {
+      child.inert = false;
+    }
+  });
+  lightbox.classList.remove("active");
+  document.body.style.overflowY = "";
+
+  previousActiveElement.focus();
+}
 
 /**
  * It fetches the data from the JSON file and returns it as an object.
@@ -69,13 +196,17 @@ async function displayData(photographers) {
 }
 
 /**
- * It takes an array of objects, filters it based on a value, then loops through the filtered array and
- * adds the value of a property to a variable.
+ * When the user clicks on a media, the lightbox opens and the media is displayed in the lightbox. The
+ * user can then click on the next and previous buttons to navigate through the media.
  * @param medias - an array of objects
  */
 async function displayMedia(medias) {
   const photographerWork = document.querySelector(".photographer-work__media");
   const photographerInfo = document.querySelector(".photographer-bottomInfo");
+  const lightboxPreview = document.querySelector(".lightbox__block-preview");
+  const lightboxBtn = document.querySelector(".lightbox__block-slide");
+  const lightboxNext = document.querySelector(".next");
+  const lightboxPrev = document.querySelector(".prev");
 
   const mediasSelect = medias.filter(
     (element) => element.photographerId === parseInt(idPhotographer)
@@ -85,14 +216,45 @@ async function displayMedia(medias) {
   for (const media of mediasSelect) {
     sum += media.likes;
     const mediaContent = document.createElement("a");
-    mediaContent.href = "";
     mediaContent.classList.add("photographer-work__link");
+    mediaContent.classList.add("lightbox-open");
     mediaContent.innerHTML = new FactoryMedia(media).createMedia();
+    mediaContent.addEventListener("click", function (e) {
+      e.preventDefault();
+      openLightbox();
+      let lightbox = new FactoryMedia(media);
+      lightboxPreview.innerHTML = lightbox.createMediaLightbox();
+      lightboxBtn.dataset.mediaPosition = mediasSelect.indexOf(media);
+    });
     photographerWork.appendChild(mediaContent);
   }
+  lightboxPrev.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (lightboxBtn.dataset.mediaPosition == 0) {
+      lightboxBtn.dataset.mediaPosition = mediasSelect.length - 1;
+    } else {
+      lightboxBtn.dataset.mediaPosition--;
+    }
+    let lightbox = new FactoryMedia(
+      mediasSelect[lightboxBtn.dataset.mediaPosition]
+    );
+    lightboxPreview.innerHTML = lightbox.createMediaLightbox();
+  });
+  lightboxNext.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (lightboxBtn.dataset.mediaPosition == mediasSelect.length - 1) {
+      lightboxBtn.dataset.mediaPosition = 0;
+    } else {
+      lightboxBtn.dataset.mediaPosition++;
+    }
+    let lightbox = new FactoryMedia(
+      mediasSelect[lightboxBtn.dataset.mediaPosition]
+    );
+    lightboxPreview.innerHTML = lightbox.createMediaLightbox();
+  });
   const likessum = document.createElement("div");
   likessum.classList.add("photographer-bottomInfo__likes");
-  likessum.innerHTML = `&lt;p>${sum}&lt;/p> &lt;svg class="photographer-bottomInfo__likes-heart heart" aria-label="likes" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  likessum.innerHTML = `&lt;p>${sum}&lt;/p> &lt;svg class="photographer-bottomInfo__likes-heart heart" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
     &lt;path d="M376,30c-27.783,0-53.255,8.804-75.707,26.168c-21.525,16.647-35.856,37.85-44.293,53.268
                c-8.437-15.419-22.768-36.621-44.293-53.268C189.255,38.804,163.783,30,136,30C58.468,30,0,93.417,0,177.514
                c0,90.854,72.943,153.015,183.369,247.118c18.752,15.981,40.007,34.095,62.099,53.414C248.38,480.596,252.12,482,256,482
@@ -126,13 +288,13 @@ init();
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="FactoryMedia.html">FactoryMedia</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkCloseModal">checkCloseModal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#displayData">displayData</a></li><li><a href="global.html#displayMedia">displayMedia</a></li><li><a href="global.html#getPhotographers">getPhotographers</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#openModal">openModal</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="FactoryMedia.html">FactoryMedia</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkCloseLightbox">checkCloseLightbox</a></li><li><a href="global.html#checkCloseModal">checkCloseModal</a></li><li><a href="global.html#closeLightbox">closeLightbox</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#displayData">displayData</a></li><li><a href="global.html#displayMedia">displayMedia</a></li><li><a href="global.html#getPhotographers">getPhotographers</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#openLightbox">openLightbox</a></li><li><a href="global.html#openModal">openModal</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon Jul 04 2022 14:13:22 GMT+0200 (heure d’été d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Jul 12 2022 17:41:02 GMT+0200 (heure d’été d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

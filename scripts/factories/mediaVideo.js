@@ -4,13 +4,17 @@ class Video {
   }
 
   /**
-   * It takes the data from the JSON file and creates a video element with the source being the video
-   * file from the JSON file.
+   * It creates a video element with the source of the video being the data.video property of the
+   * object.
+   * @param [isControl=false] - boolean - if true, the video will have controls.
    * @returns The mediaVideo variable is being returned.
    */
   create(isControl = false) {
-    
-    const mediaVideo = `<video ${isControl ? 'controls': ''} src="../assets/images/${this.data.video}" alt="${this.data.title}" class="photographer-work__preview"></video>`;
+    const mediaVideo = `<video ${
+      isControl ? "controls" : ""
+    } src="../assets/images/${this.data.video}" alt="${
+      this.data.title
+    }" class="photographer-work__preview"></video>`;
     return mediaVideo;
   }
 }

@@ -26,72 +26,101 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const modal = document.getElementById("contact_modal");
-const modalOpen = document.querySelectorAll(".modal-open");
-const modalClose = document.querySelectorAll(".modal-close");
-const submitBtn = document.getElementById("submit-form");
-let previousActiveElement;
+            <pre class="prettyprint source linenums"><code>class Form {
+  constructor(prenom, nom, email, message) {
+    this.prenom = prenom;
+    this.formPrenom = document.getElementById("formFirst");
+    this.alertPrenom = document.getElementById("formFAlert");
+    this.nom = nom;
+    this.formNom = document.getElementById("formLast");
+    this.alertNom = document.getElementById("formLAlert");
+    this.email = email;
+    this.formMail = document.getElementById("formEmail");
+    this.alertEmail = document.getElementById("formEAlert");
+    this.message = message;
+    this.formMessage = document.getElementById("formMsg");
+    this.alertMessage = document.getElementById("formMAlert");
+    this.modalForm = document.querySelector("modal-form");
+    this.modalFormData = document.querySelectorAll("div.modal-form__data");
+  }
 
-const KEYCODE = {
-  ESC: 27,
-};
+  checkPrenom() {
+    let condition = this.prenom.length > 2;
+    let alert = this.alertPrenom;
+    let input = this.formPrenom;
+    let textError = "Veuillez renseigner un prenom de plus de deux caractères.";
 
-modalOpen.forEach((trigger) => trigger.addEventListener("click", openModal));
+    this.controlInput(condition, alert, input, textError);
+  }
 
-modalClose.forEach((trigger) => trigger.addEventListener("click", closeModal));
+  checkNom() {
+    let condition = this.nom.length > 2;
+    let alert = this.alertNom;
+    let input = this.formNom;
+    let textError = "Veuillez renseigner un nom de plus de deux caractères.";
 
-submitBtn.addEventListener("click", (envoi) => {
-  let prenom = document.getElementById("First-name").value;
-  let nom = document.getElementById("Last-name").value;
-  let email = document.getElementById("Email").value;
-  let message = document.getElementById("Your-message").value;
-  console.log(prenom, nom, email, message);
-});
+    this.controlInput(condition, alert, input, textError);
+  }
 
-/**
- * When the modal is opened, the focus is set to the close button.
- */
-function openModal() {
-  document.addEventListener("keydown", checkCloseModal);
-  previousActiveElement = document.activeElement;
+  checkEmail() {
+    const mailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let condition = this.email != "" &amp;&amp; mailReg.test(this.email);
+    let alert = this.alertEmail;
+    let input = this.formMail;
+    let textError = "Veuillez renseigner une adresse email valide.";
 
-  Array.from(document.body.children).forEach((child) => {
-    if (child !== modal) {
-      child.inert = true;
+    this.controlInput(condition, alert, input, textError);
+  }
+
+  checkMessage() {
+    let condition = this.message != "" &amp;&amp; this.message.length > 30;
+    let alert = this.alertMessage;
+    let input = this.formMessage;
+    let textError = "Veuillez écrire un message d'au moins 30 caractères.";
+
+    this.controlInput(condition, alert, input, textError);
+  }
+
+  /**
+   * If the condition is false, then set the alert's innerHTML to the txtError, and set the input's
+   * data-error-visible attribute to true. Otherwise, set the input's data-error-visible attribute to
+   * false, and set the alert's innerHTML to an empty string.
+   * @param condition - the condition that will be checked
+   * @param alert - the element that will display the error message
+   * @param input - the input element
+   * @param txtError - The text that will be displayed in the alert box.
+   */
+  controlInput(condition, alert, input, txtError) {
+    if (condition == false) {
+      alert.innerHTML = txtError;
+      input.setAttribute("data-error-visible", "true");
+    } else {
+      input.setAttribute("data-error-visible", "false");
+      alert.innerHTML = "";
     }
-  });
-  modal.classList.add("active");
+  }
 
-  modal.querySelector(".modal__close-button").focus();
-}
+  /**
+   * If the form is valid, then log the form data to the console.
+   * @returns the value of the function.
+   */
+  checkValid() {
+    const isValid = (input) =>
+      input.getAttribute("data-error-visible") === "false";
 
-/**
- * If the key pressed is the escape key, then close the modal
- * @param e - The event object
- */
-function checkCloseModal(e) {
-  if (e.keyCode === KEYCODE.ESC) {
-    closeModal();
+    let inputArray = Array.from(this.modalFormData);
+
+    let formValid = inputArray.every(isValid);
+
+    if (!formValid) {
+      return false;
+    } else {
+      console.log(this.prenom, this.nom, this.email, this.message);
+    }
   }
 }
 
-/**
- * It removes the event listener that listens for the escape key, removes the inert attribute from all
- * the elements in the body except the modal, removes the active class from the modal, and then focuses
- * on the previous active element.
- */
-function closeModal() {
-  document.removeEventListener("keydown", checkCloseModal);
-
-  Array.from(document.body.children).forEach((child) => {
-    if (child !== modal) {
-      child.inert = false;
-    }
-  });
-  modal.classList.remove("active");
-
-  previousActiveElement.focus();
-}
+export { Form };
 </code></pre>
         </article>
     </section>
@@ -102,13 +131,13 @@ function closeModal() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="FactoryMedia.html">FactoryMedia</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkCloseModal">checkCloseModal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#displayData">displayData</a></li><li><a href="global.html#displayMedia">displayMedia</a></li><li><a href="global.html#getPhotographers">getPhotographers</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#openModal">openModal</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="FactoryMedia.html">FactoryMedia</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkCloseLightbox">checkCloseLightbox</a></li><li><a href="global.html#checkCloseModal">checkCloseModal</a></li><li><a href="global.html#closeLightbox">closeLightbox</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#displayData">displayData</a></li><li><a href="global.html#displayMedia">displayMedia</a></li><li><a href="global.html#getPhotographers">getPhotographers</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#openLightbox">openLightbox</a></li><li><a href="global.html#openModal">openModal</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon Jul 04 2022 14:13:22 GMT+0200 (heure d’été d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Jul 12 2022 17:41:02 GMT+0200 (heure d’été d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>
