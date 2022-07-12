@@ -175,6 +175,9 @@ async function displayMedia(medias) {
   const photographerWork = document.querySelector(".photographer-work__media");
   const photographerInfo = document.querySelector(".photographer-bottomInfo");
   const lightboxPreview = document.querySelector(".lightbox__block-preview");
+  const lightboxBtn = document.querySelector(".lightbox__block-slide")
+  const lightboxNext = document.querySelector(".next");
+  const lightboxPrev = document.querySelector(".prev");
 
   const mediasSelect = medias.filter(
     (element) => element.photographerId === parseInt(idPhotographer)
@@ -192,9 +195,30 @@ async function displayMedia(medias) {
       openLightbox();
       let lightbox = new FactoryMedia(media);
       lightboxPreview.innerHTML = lightbox.createMediaLightbox();
+      lightboxBtn.dataset.mediaPosition = mediasSelect.indexOf(media);
     });
     photographerWork.appendChild(mediaContent);
   }
+  lightboxPrev.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (lightboxBtn.dataset.mediaPosition == 0) {
+      lightboxBtn.dataset.mediaPosition = mediasSelect.length-1;
+    } else {
+      lightboxBtn.dataset.mediaPosition--;
+    }
+    let lightbox = new FactoryMedia(mediasSelect[lightboxBtn.dataset.mediaPosition]);
+    lightboxPreview.innerHTML = lightbox.createMediaLightbox();
+  });
+  lightboxNext.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (lightboxBtn.dataset.mediaPosition == mediasSelect.length-1) {
+      lightboxBtn.dataset.mediaPosition = 0;
+    } else {
+      lightboxBtn.dataset.mediaPosition++;
+    }
+    let lightbox = new FactoryMedia(mediasSelect[lightboxBtn.dataset.mediaPosition]);
+    lightboxPreview.innerHTML = lightbox.createMediaLightbox();
+  });
   const likessum = document.createElement("div");
   likessum.classList.add("photographer-bottomInfo__likes");
   likessum.innerHTML = `<p>${sum}</p> <svg class="photographer-bottomInfo__likes-heart heart" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">

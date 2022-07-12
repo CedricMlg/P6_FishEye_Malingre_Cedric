@@ -46,15 +46,7 @@ class FactoryMedia {
   }
 
   createMediaLightbox() {
-    if (this.media.create().includes("video") == true) {
-      let baseMedia = this.media.create();
-      let addString = "controls "
-      let position = 7;
-      this.buildMedia = [baseMedia.slice(0, position), addString, baseMedia.slice(position)].join('');
-    } else {
-      this.buildMedia = this.media.create();
-    }
-    return `<div class="lightbox__block-imgBox">${this.buildMedia}</div>
+    return `<div class="lightbox__block-imgBox">${this.media.create(true)}</div>
     <figcaption><p class="lightbox__block-caption">${
       this.media.data.title
     }</p></figcaption>`;
