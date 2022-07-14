@@ -63,12 +63,19 @@ class Form {
    * @param txtError - The text that will be displayed in the alert box.
    */
   controlInput(condition, alert, input, txtError) {
+    const inputAlert = input.querySelector("input");
     if (condition == false) {
       alert.innerHTML = txtError;
+      alert.setAttribute("aria-hidden", "false");
+      alert.setAttribute("role", "alert");
       input.setAttribute("data-error-visible", "true");
+      inputAlert.setAttribute("aria-invalid", "true");
     } else {
-      input.setAttribute("data-error-visible", "false");
       alert.innerHTML = "";
+      alert.setAttribute("aria-hidden", "true");
+      alert.setAttribute("role", "none");
+      input.setAttribute("data-error-visible", "false");
+      inputAlert.setAttribute("aria-invalid", "false");
     }
   }
 
