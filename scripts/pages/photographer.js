@@ -168,9 +168,9 @@ async function displayData(photographers) {
 }
 
 /**
- * When the user clicks on a media, the lightbox opens and the media is displayed in the lightbox. The
- * user can then click on the next and previous buttons to navigate through the media.
- * @param medias - an array of objects
+ * When the user clicks on the heart icon, the number of likes is incremented by one and the total
+ * number of likes is updated.
+ * @param medias - an array of objects that contain the media information
  */
 async function displayMedia(medias) {
   const photographerWork = document.querySelector(".photographer-work__media");
@@ -192,8 +192,12 @@ async function displayMedia(medias) {
     mediaContent.classList.add("photographer-work__link");
     mediaContent.classList.add("lightbox-open");
     mediaContent.innerHTML = new FactoryMedia(media).createMedia();
-    const mediaPreview = mediaContent.querySelector(".photographer-work__preview");
-    const mediaHeart = mediaContent.querySelector(".photographer-work__caption-heart");
+    const mediaPreview = mediaContent.querySelector(
+      ".photographer-work__preview"
+    );
+    const mediaHeart = mediaContent.querySelector(
+      ".photographer-work__caption-heart"
+    );
     mediaPreview.addEventListener("click", function (e) {
       e.preventDefault();
       openLightbox();
@@ -202,11 +206,13 @@ async function displayMedia(medias) {
       lightboxBtn.dataset.mediaPosition = mediasSelect.indexOf(media);
     });
     mediaHeart.addEventListener("click", function (e) {
-      const mediaLikesCount = mediaContent.querySelector(".photographer-work__caption-count")
+      const mediaLikesCount = mediaContent.querySelector(
+        ".photographer-work__caption-count"
+      );
       e.preventDefault();
       mediasSelect[mediasSelect.indexOf(media)] = media.likes++;
       sum++;
-      mediaLikesCount.textContent = parseInt(mediaLikesCount.textContent)+1;
+      mediaLikesCount.textContent = parseInt(mediaLikesCount.textContent) + 1;
       displayTotalLikes();
     });
     photographerWork.appendChild(mediaContent);
