@@ -202,11 +202,11 @@ async function displayMedia(medias) {
       lightboxBtn.dataset.mediaPosition = mediasSelect.indexOf(media);
     });
     mediaHeart.addEventListener("click", function (e) {
+      const mediaLikesCount = mediaContent.querySelector(".photographer-work__caption-count")
       e.preventDefault();
       mediasSelect[mediasSelect.indexOf(media)] = media.likes++;
       sum++;
-      let refreshLikes = new FactoryMedia(media);
-      mediaContent.innerHTML = refreshLikes.createMedia();
+      mediaLikesCount.textContent = parseInt(mediaLikesCount.textContent)+1;
       displayTotalLikes();
     });
     photographerWork.appendChild(mediaContent);
