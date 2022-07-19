@@ -36,7 +36,7 @@ class FactoryMedia {
       this.media.data.title
     }</div><div class="photographer-work__caption-likes"><p class="photographer-work__caption-count">${
       this.media.data.likes
-    }</p><svg class="photographer-work__caption-heart heart" aria-label="likes" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+    }</p><svg tabindex="0" class="photographer-work__caption-heart heart" aria-label="likes" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
     <path d="M376,30c-27.783,0-53.255,8.804-75.707,26.168c-21.525,16.647-35.856,37.85-44.293,53.268
                c-8.437-15.419-22.768-36.621-44.293-53.268C189.255,38.804,163.783,30,136,30C58.468,30,0,93.417,0,177.514
                c0,90.854,72.943,153.015,183.369,247.118c18.752,15.981,40.007,34.095,62.099,53.414C248.38,480.596,252.12,482,256,482
