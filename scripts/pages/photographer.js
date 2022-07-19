@@ -174,7 +174,6 @@ async function displayData(photographers) {
  */
 async function displayMedia(medias) {
   const photographerWork = document.querySelector(".photographer-work__media");
-  // const photographerInfo = document.querySelector(".photographer-bottomInfo");
   const likessum = document.querySelector(".photographer-bottomInfo__likes");
   const lightboxPreview = document.querySelector(".lightbox__block-preview");
   const lightboxBtn = document.querySelector(".lightbox__block-slide");
@@ -191,6 +190,7 @@ async function displayMedia(medias) {
     const mediaContent = document.createElement("a");
     mediaContent.classList.add("photographer-work__link");
     mediaContent.classList.add("lightbox-open");
+    mediaContent.dataset.liked = "false";
     mediaContent.innerHTML = new FactoryMedia(media).createMedia();
     const mediaPreview = mediaContent.querySelector(
       ".photographer-work__preview"
@@ -210,10 +210,15 @@ async function displayMedia(medias) {
         ".photographer-work__caption-count"
       );
       e.preventDefault();
-      mediasSelect[mediasSelect.indexOf(media)] = media.likes++;
-      sum++;
-      mediaLikesCount.textContent = parseInt(mediaLikesCount.textContent) + 1;
-      displayTotalLikes();
+      if (mediaContent.getAttribute("data-liked") == "false") {
+        mediasSelect[mediasSelect.indexOf(media)] = media.likes++;
+        sum++;
+        mediaLikesCount.textContent = parseInt(mediaLikesCount.textContent) + 1;
+        displayTotalLikes();
+        mediaContent.dataset.liked = "true";
+      } else {
+        console.log("oui")
+      }
     });
     photographerWork.appendChild(mediaContent);
   }
