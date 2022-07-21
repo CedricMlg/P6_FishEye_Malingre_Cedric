@@ -10,8 +10,11 @@ const modalClose = document.querySelectorAll(".modal-close");
 const lightbox = document.getElementById("lightbox");
 const lightboxClose = document.querySelectorAll(".lightbox-close");
 let previousActiveElement;
-const KEYCODE = {
+const ESCKEY = {
   ESC: 27,
+};
+const ENTRKEY = {
+  ENTR: 13,
 };
 
 const paramsURL = new URL(document.location).searchParams;
@@ -38,6 +41,7 @@ submitBtn.addEventListener("click", (envoi) => {
   form.checkValid();
 });
 
+
 /**
  * When the modal is opened, the user is unable to scroll the page, and the modal is focused.
  */
@@ -61,10 +65,11 @@ function openModal() {
  * @param e - The event object
  */
 function checkCloseModal(e) {
-  if (e.keyCode === KEYCODE.ESC) {
+  if (e.keyCode === ESCKEY.ESC) {
     closeModal();
   }
 }
+
 
 /**
  * It removes the event listener that listens for the escape key, removes the inert attribute from all
@@ -85,11 +90,20 @@ function closeModal() {
   previousActiveElement.focus();
 }
 
+
 /**
- * When the lightbox is opened, the user can't scroll the page, and the lightbox is the only thing that
- * can be interacted with.
+ * It adds an event listener to the document that listens for the escape key to be pressed, and if it
+ * is, it closes the lightbox. 
+ * 
+ * It also sets the previousActiveElement variable to the element that was active before the lightbox
+ * was opened. 
+ * 
+ * It then sets the inert property of all elements on the page to true, except for the lightbox. 
+ * 
+ * It then adds the active class to the lightbox, and sets the overflowY property of the body to
+ * hidden.
  */
-function openLightbox(data) {
+function openLightbox() {
   document.addEventListener("keydown", checkCloseLightbox);
   previousActiveElement = document.activeElement;
 
@@ -100,8 +114,6 @@ function openLightbox(data) {
   });
   lightbox.classList.add("active");
   document.body.style.overflowY = "hidden";
-
-  lightbox.querySelector(".lightbox__close-button").focus();
 }
 
 /**
@@ -109,10 +121,11 @@ function openLightbox(data) {
  * @param e - The event object
  */
 function checkCloseLightbox(e) {
-  if (e.keyCode === KEYCODE.ESC) {
+  if (e.keyCode === ESCKEY.ESC) {
     closeLightbox();
   }
 }
+
 
 /**
  * It removes the event listener that listens for the escape key, removes the inert attribute from all
@@ -167,9 +180,10 @@ async function displayData(photographers) {
   photographerModel.getUserName();
 }
 
+
 /**
- * When the user clicks on the heart icon, the number of likes is incremented by one and the total
- * number of likes is updated.
+ * It takes an array of objects, filters it, and then displays the filtered array on the page.
+ * async function displayMedia(medias, idPhotographer
  * @param medias - an array of objects that contain the media information
  */
 async function displayMedia(medias) {
@@ -198,28 +212,36 @@ async function displayMedia(medias) {
     const mediaHeart = mediaContent.querySelector(
       ".photographer-work__caption-heart"
     );
-    mediaPreview.addEventListener("click", function (e) {
-      e.preventDefault();
-      openLightbox();
-      let lightbox = new FactoryMedia(media);
-      lightboxPreview.innerHTML = lightbox.createMediaLightbox();
-      lightboxBtn.dataset.mediaPosition = mediasSelect.indexOf(media);
+    mediaPreview.addEventListener("click", mediaLightbox);
+    mediaPreview.addEventListener("keydown", function (e) {
+      if (e.keyCode === ENTRKEY.ENTR) {
+        mediaLightbox();
+      }
     });
-    mediaHeart.addEventListener("click", function (e) {
+    mediaHeart.addEventListener("click", likeMedia);
+    mediaHeart.addEventListener("keydown", function (e) {
+      if (e.keyCode === ENTRKEY.ENTR) {
+        likeMedia();
+      }
+    });
+    function likeMedia(e) {
       const mediaLikesCount = mediaContent.querySelector(
         ".photographer-work__caption-count"
       );
-      e.preventDefault();
       if (mediaContent.getAttribute("data-liked") == "false") {
         mediasSelect[mediasSelect.indexOf(media)] = media.likes++;
         sum++;
         mediaLikesCount.textContent = parseInt(mediaLikesCount.textContent) + 1;
         displayTotalLikes();
         mediaContent.dataset.liked = "true";
-      } else {
-        console.log("oui")
       }
-    });
+    }
+    function mediaLightbox() {
+      openLightbox();
+      let lightbox = new FactoryMedia(media);
+      lightboxPreview.innerHTML = lightbox.createMediaLightbox();
+      lightboxBtn.dataset.mediaPosition = mediasSelect.indexOf(media);
+    }
     photographerWork.appendChild(mediaContent);
   }
   lightboxPrev.addEventListener("click", function (e) {
