@@ -232,6 +232,7 @@ async function displayMedia(medias) {
         mediasSelect[mediasSelect.indexOf(media)] = media.likes++;
         sum++;
         mediaLikesCount.textContent = parseInt(mediaLikesCount.textContent) + 1;
+        mediaHeart.ariaLabel = "liked"
         displayTotalLikes();
         mediaContent.dataset.liked = "true";
       }
