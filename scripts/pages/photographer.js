@@ -41,7 +41,6 @@ submitBtn.addEventListener("click", (envoi) => {
   form.checkValid();
 });
 
-
 /**
  * When the modal is opened, the user is unable to scroll the page, and the modal is focused.
  */
@@ -70,7 +69,6 @@ function checkCloseModal(e) {
   }
 }
 
-
 /**
  * It removes the event listener that listens for the escape key, removes the inert attribute from all
  * the elements in the body except the modal, removes the active class from the modal, and sets the
@@ -90,16 +88,15 @@ function closeModal() {
   previousActiveElement.focus();
 }
 
-
 /**
  * It adds an event listener to the document that listens for the escape key to be pressed, and if it
- * is, it closes the lightbox. 
- * 
+ * is, it closes the lightbox.
+ *
  * It also sets the previousActiveElement variable to the element that was active before the lightbox
- * was opened. 
- * 
- * It then sets the inert property of all elements on the page to true, except for the lightbox. 
- * 
+ * was opened.
+ *
+ * It then sets the inert property of all elements on the page to true, except for the lightbox.
+ *
  * It then adds the active class to the lightbox, and sets the overflowY property of the body to
  * hidden.
  */
@@ -125,7 +122,6 @@ function checkCloseLightbox(e) {
     closeLightbox();
   }
 }
-
 
 /**
  * It removes the event listener that listens for the escape key, removes the inert attribute from all
@@ -180,7 +176,6 @@ async function displayData(photographers) {
   photographerModel.getUserName();
 }
 
-
 /**
  * It takes an array of objects, filters it, and then displays the filtered array on the page.
  * async function displayMedia(medias, idPhotographer
@@ -188,6 +183,7 @@ async function displayData(photographers) {
  */
 async function displayMedia(medias) {
   const photographerWork = document.querySelector(".photographer-work__media");
+  const select = document.getElementById("sort");
   const likessum = document.querySelector(".photographer-bottomInfo__likes");
   const lightboxPreview = document.querySelector(".lightbox__block-preview");
   const lightboxBtn = document.querySelector(".lightbox__block-slide");
@@ -212,6 +208,7 @@ async function displayMedia(medias) {
     const mediaHeart = mediaContent.querySelector(
       ".photographer-work__caption-heart"
     );
+    select.addEventListener("input", handleSelect);
     mediaPreview.addEventListener("click", mediaLightbox);
     mediaPreview.addEventListener("keydown", function (e) {
       if (e.keyCode === ENTRKEY.ENTR) {
@@ -232,7 +229,7 @@ async function displayMedia(medias) {
         mediasSelect[mediasSelect.indexOf(media)] = media.likes++;
         sum++;
         mediaLikesCount.textContent = parseInt(mediaLikesCount.textContent) + 1;
-        mediaHeart.ariaLabel = "liked"
+        mediaHeart.ariaLabel = "liked";
         displayTotalLikes();
         mediaContent.dataset.liked = "true";
       }
@@ -242,6 +239,34 @@ async function displayMedia(medias) {
       let lightbox = new FactoryMedia(media);
       lightboxPreview.innerHTML = lightbox.createMediaLightbox();
       lightboxBtn.dataset.mediaPosition = mediasSelect.indexOf(media);
+    }
+    function handleSelect(selected) {
+      let target = selected.target;
+      if (target.value == 0) {
+        const sortLikes = mediasSelect.sort((a, b) => {
+          // 1. < 0 a comes first
+          // 2. 0 nothing will be changed
+          // 3. > 0 b comes first
+
+          return b.likes - a.likes;
+        });
+        displaySelected(sortLikes);
+      } else if (target.value == 1) {
+        const sortDate = mediasSelect.sort(
+          (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
+        );
+        displaySelected(sortDate);
+      } else {
+        const sortTitle = mediasSelect.sort((a, b) => {
+          if (a.title < b.title) return -1;
+          return 1;
+        });
+        displaySelected(sortTitle);
+      }
+    }
+    function displaySelected(sortedData) {
+      console.log(sortedData)
+      sortedData.forEach((sortedMedia) => mediaContent.innerHTML = new FactoryMedia(sortedMedia).createMedia());
     }
     photographerWork.appendChild(mediaContent);
   }
