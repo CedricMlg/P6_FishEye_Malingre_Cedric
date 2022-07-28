@@ -153,9 +153,7 @@ async function getPhotographers() {
 }
 
 /**
- * It takes an array of objects, finds the object with the id that matches the idPhotographer variable,
- * and then creates a new object from the photographerFactory function, which is then used to create a
- * DOM element and append it to the page.
+ * It takes an array of objects, sorts them, and then displays them on the page.
  * @param photographers - an array of objects
  */
 async function displayData(photographers) {
@@ -177,9 +175,8 @@ async function displayData(photographers) {
 }
 
 /**
- * It takes an array of objects, filters it, and then displays the filtered array on the page.
- * async function displayMedia(medias, idPhotographer
- * @param medias - an array of objects that contain the media information
+ * It takes an array of objects, sorts them, and then displays them on the page.
+ * @param medias - an array of objects that contain the data for each media
  */
 async function displayMedia(medias) {
   const photographerWork = document.querySelector(".photographer-work__media");
@@ -193,82 +190,86 @@ async function displayMedia(medias) {
   const mediasSelect = medias.filter(
     (element) => element.photographerId === parseInt(idPhotographer)
   );
+  mediaInteraction(mediasSelect);
 
-  let sum = 0;
-  for (const media of mediasSelect) {
-    sum += media.likes;
-    const mediaContent = document.createElement("a");
-    mediaContent.classList.add("photographer-work__link");
-    mediaContent.classList.add("lightbox-open");
-    mediaContent.dataset.liked = "false";
-    mediaContent.innerHTML = new FactoryMedia(media).createMedia();
-    const mediaPreview = mediaContent.querySelector(
-      ".photographer-work__preview"
-    );
-    const mediaHeart = mediaContent.querySelector(
-      ".photographer-work__caption-heart"
-    );
-    select.addEventListener("input", handleSelect);
-    mediaPreview.addEventListener("click", mediaLightbox);
-    mediaPreview.addEventListener("keydown", function (e) {
-      if (e.keyCode === ENTRKEY.ENTR) {
-        mediaLightbox();
-      }
-    });
-    mediaHeart.addEventListener("click", likeMedia);
-    mediaHeart.addEventListener("keydown", function (e) {
-      if (e.keyCode === ENTRKEY.ENTR) {
-        likeMedia();
-      }
-    });
-    function likeMedia(e) {
-      const mediaLikesCount = mediaContent.querySelector(
-        ".photographer-work__caption-count"
+  function mediaInteraction(mediaArray) {
+    let sum = 0;
+    for (const media of mediaArray) {
+      sum += media.likes;
+      const mediaContent = document.createElement("a");
+      mediaContent.classList.add("photographer-work__link");
+      mediaContent.classList.add("lightbox-open");
+      mediaContent.dataset.liked = "false";
+      mediaContent.innerHTML = new FactoryMedia(media).createMedia();
+      const mediaPreview = mediaContent.querySelector(
+        ".photographer-work__preview"
       );
-      if (mediaContent.getAttribute("data-liked") == "false") {
-        mediasSelect[mediasSelect.indexOf(media)] = media.likes++;
-        sum++;
-        mediaLikesCount.textContent = parseInt(mediaLikesCount.textContent) + 1;
-        mediaHeart.ariaLabel = "liked";
-        displayTotalLikes();
-        mediaContent.dataset.liked = "true";
-      }
-    }
-    function mediaLightbox() {
-      openLightbox();
-      let lightbox = new FactoryMedia(media);
-      lightboxPreview.innerHTML = lightbox.createMediaLightbox();
-      lightboxBtn.dataset.mediaPosition = mediasSelect.indexOf(media);
-    }
-    function handleSelect(selected) {
-      let target = selected.target;
-      if (target.value == 0) {
-        const sortLikes = mediasSelect.sort((a, b) => {
-          // 1. < 0 a comes first
-          // 2. 0 nothing will be changed
-          // 3. > 0 b comes first
-
-          return b.likes - a.likes;
-        });
-        displaySelected(sortLikes);
-      } else if (target.value == 1) {
-        const sortDate = mediasSelect.sort(
-          (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
+      const mediaHeart = mediaContent.querySelector(
+        ".photographer-work__caption-heart"
+      );
+      select.addEventListener("input", handleSelect);
+      mediaPreview.addEventListener("click", mediaLightbox);
+      mediaPreview.addEventListener("keydown", function (e) {
+        if (e.keyCode === ENTRKEY.ENTR) {
+          mediaLightbox();
+        }
+      });
+      mediaHeart.addEventListener("click", likeMedia);
+      mediaHeart.addEventListener("keydown", function (e) {
+        if (e.keyCode === ENTRKEY.ENTR) {
+          likeMedia();
+        }
+      });
+      /**
+       * If the mediaContent data-liked attribute is false, then add 1 to the mediaLikesCount and
+       * display the total likes.
+       * @param e - the event object
+       */
+      function likeMedia(e) {
+        const mediaLikesCount = mediaContent.querySelector(
+          ".photographer-work__caption-count"
         );
-        displaySelected(sortDate);
-      } else {
-        const sortTitle = mediasSelect.sort((a, b) => {
-          if (a.title < b.title) return -1;
-          return 1;
-        });
-        displaySelected(sortTitle);
+        if (mediaContent.getAttribute("data-liked") == "false") {
+          console.log(mediaArray);
+          sum++;
+          mediaLikesCount.textContent =
+            parseInt(mediaLikesCount.textContent) + 1;
+          mediaHeart.ariaLabel = "liked";
+          displayTotalLikes();
+          mediaContent.dataset.liked = "true";
+        }
       }
+      /**
+       * It creates a new instance of the FactoryMedia class, and then calls the createMediaLightbox method
+       * on that instance, and then assigns the return value of that method to the innerHTML of the
+       * lightboxPreview element.
+       */
+      function mediaLightbox() {
+        openLightbox();
+        let lightbox = new FactoryMedia(media);
+        lightboxPreview.innerHTML = lightbox.createMediaLightbox();
+        lightboxBtn.dataset.mediaPosition = mediaArray.indexOf(media);
+      }
+      photographerWork.appendChild(mediaContent);
     }
-    function displaySelected(sortedData) {
-      console.log(sortedData)
-      sortedData.forEach((sortedMedia) => mediaContent.innerHTML = new FactoryMedia(sortedMedia).createMedia());
+
+    /**
+     * It takes the sum of the likes and displays it in the HTML.
+     * @returns a string of HTML.
+     */
+    function getTotalLikes() {
+      return `<p>${sum}</p> <svg class="photographer-bottomInfo__likes-heart heart" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+      <path d="M376,30c-27.783,0-53.255,8.804-75.707,26.168c-21.525,16.647-35.856,37.85-44.293,53.268
+                 c-8.437-15.419-22.768-36.621-44.293-53.268C189.255,38.804,163.783,30,136,30C58.468,30,0,93.417,0,177.514
+                 c0,90.854,72.943,153.015,183.369,247.118c18.752,15.981,40.007,34.095,62.099,53.414C248.38,480.596,252.12,482,256,482
+                 s7.62-1.404,10.532-3.953c22.094-19.322,43.348-37.435,62.111-53.425C439.057,330.529,512,268.368,512,177.514
+                 C512,93.417,453.532,30,376,30z"></path>
+    </svg>`;
     }
-    photographerWork.appendChild(mediaContent);
+    function displayTotalLikes() {
+      likessum.innerHTML = getTotalLikes();
+    }
+    displayTotalLikes();
   }
   lightboxPrev.addEventListener("click", function (e) {
     e.preventDefault();
@@ -294,19 +295,38 @@ async function displayMedia(medias) {
     );
     lightboxPreview.innerHTML = lightbox.createMediaLightbox();
   });
-  function getTotalLikes() {
-    return `<p>${sum}</p> <svg class="photographer-bottomInfo__likes-heart heart" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-    <path d="M376,30c-27.783,0-53.255,8.804-75.707,26.168c-21.525,16.647-35.856,37.85-44.293,53.268
-               c-8.437-15.419-22.768-36.621-44.293-53.268C189.255,38.804,163.783,30,136,30C58.468,30,0,93.417,0,177.514
-               c0,90.854,72.943,153.015,183.369,247.118c18.752,15.981,40.007,34.095,62.099,53.414C248.38,480.596,252.12,482,256,482
-               s7.62-1.404,10.532-3.953c22.094-19.322,43.348-37.435,62.111-53.425C439.057,330.529,512,268.368,512,177.514
-               C512,93.417,453.532,30,376,30z"></path>
-  </svg>`;
+  /**
+   * If the value of the selected option is 0, sort the array by likes, if it's 1, sort by date, and if
+   * it's 2, sort by title.
+   * @param selected - the event object
+   */
+  function handleSelect(selected) {
+    let target = selected.target;
+    if (target.value == 0) {
+      const sortLikes = mediasSelect.sort((a, b) => {
+        // 1. < 0 a comes first
+        // 2. 0 nothing will be changed
+        // 3. > 0 b comes first
+
+        return b.likes - a.likes;
+      });
+      photographerWork.innerHTML = "";
+      mediaInteraction(sortLikes);
+    } else if (target.value == 1) {
+      const sortDate = mediasSelect.sort(
+        (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
+      );
+      photographerWork.innerHTML = "";
+      mediaInteraction(sortDate);
+    } else {
+      const sortTitle = mediasSelect.sort((a, b) => {
+        if (a.title < b.title) return -1;
+        return 1;
+      });
+      photographerWork.innerHTML = "";
+      mediaInteraction(sortTitle);
+    }
   }
-  function displayTotalLikes() {
-    likessum.innerHTML = getTotalLikes();
-  }
-  displayTotalLikes();
 }
 
 /**
