@@ -10,7 +10,9 @@ class Image {
   create(isTabable = false) {
     const mediaImage = `<img ${
       isTabable ? "" : 'tabindex="0"'
-    } src="../assets/images/${this.data.image}" alt="${this.data.title}" class="photographer-work__preview">`;
+    } src="../assets/images/${this.data.image}" alt="${this.data.title}${
+      isTabable ? "" : ", closeup view"
+    }" class="photographer-work__preview">`;
     return mediaImage;
   }
 }

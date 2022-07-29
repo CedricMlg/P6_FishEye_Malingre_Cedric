@@ -196,7 +196,7 @@ async function displayMedia(medias) {
     let sum = 0;
     for (const media of mediaArray) {
       sum += media.likes;
-      const mediaContent = document.createElement("a");
+      const mediaContent = document.createElement("div");
       mediaContent.classList.add("photographer-work__link");
       mediaContent.classList.add("lightbox-open");
       mediaContent.dataset.liked = "false";
@@ -301,6 +301,9 @@ async function displayMedia(medias) {
    * @param selected - the event object
    */
   function handleSelect(selected) {
+    const value1 = select.querySelector(":nth-child(1)");
+    const value2 = select.querySelector(":nth-child(2)");
+    const value3 = select.querySelector(":nth-child(3)");
     let target = selected.target;
     if (target.value == 0) {
       const sortLikes = mediasSelect.sort((a, b) => {

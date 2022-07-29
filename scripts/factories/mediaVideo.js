@@ -11,9 +11,9 @@ class Video {
    */
   create(isControl = false) {
     const mediaVideo = `<video ${
-      isControl ? "controls" : ""
-    } src="../assets/images/${this.data.video}" alt="${
-      this.data.title
+      isControl ? "controls" : 'tabindex="0"'
+    } src="../assets/images/${this.data.video}" title="${this.data.title}${
+      isControl ? "" : ", closeup view"
     }" class="photographer-work__preview"></video>`;
     return mediaVideo;
   }
