@@ -2,17 +2,18 @@ import { Image } from "./mediaImage";
 import { Video } from "./mediaVideo";
 
 class FactoryMedia {
-  /**
-   * If the data object has an image property, create a new Image object with the data object as a
-   * parameter. If the data object has a video property, create a new Video object with the data object
-   * as a parameter. If neither of these conditions are met, throw an error.
-   * @param data - the object that contains the data for the media
-   */
+
+/**
+ * If the data object has an image property, create a new Image object with the data object as a
+ * parameter. If the data object has a video property, create a new Video object with the data object
+ * as a parameter. If neither of these conditions are met, throw an error.
+ * @param data - the object that contains the data of the media
+ */
   constructor(data) {
     this.media = null;
-    if (data.hasOwnProperty("image") === true) {
+    if (Object.prototype.hasOwnProperty.call(data, "image") === true) {
       this.media = new Image(data);
-    } else if (data.hasOwnProperty("video") === true) {
+    } else if (Object.prototype.hasOwnProperty.call(data, "video") === true) {
       this.media = new Video(data);
     } else {
       throw "Aucun media n'a été trouvé";

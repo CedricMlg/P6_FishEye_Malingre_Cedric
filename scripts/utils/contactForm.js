@@ -35,7 +35,7 @@ class Form {
   }
 
   checkEmail() {
-    const mailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const mailReg = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
     let condition = this.email != "" && mailReg.test(this.email);
     let alert = this.alertEmail;
     let input = this.formMail;

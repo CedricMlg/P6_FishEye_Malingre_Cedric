@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "lint": "eslint --max-warnings=0 .",
     "preview": "vite preview",
     "sass": "sass --watch ./sass/main.scss:./css/style.css -w ",
     "prefix": "postcss ./css/style.css --use autoprefixer -d ./css/prefixed/"
@@ -14,6 +15,7 @@
     "url": "git+https://github.com/CedricMlg/P6_FishEye_Malingre_Cedric"
   },
   "devDependencies": {
+    "eslint": "^8.21.0",
     "sass": "^1.52.3",
     "vite": "^2.9.9"
   },

@@ -28,7 +28,7 @@ lightboxClose.forEach((trigger) =>
   trigger.addEventListener("click", closeLightbox)
 );
 
-submitBtn.addEventListener("click", (envoi) => {
+submitBtn.addEventListener("click", () => {
   let prenom = document.getElementById("First-name").value;
   let nom = document.getElementById("Last-name").value;
   let email = document.getElementById("Email").value;
@@ -194,6 +194,8 @@ async function displayMedia(medias) {
 
   function mediaInteraction(mediaArray) {
     let sum = 0;
+    let likeMedia;
+    let mediaLightbox;
     for (const media of mediaArray) {
       sum += media.likes;
       const mediaContent = document.createElement("div");
@@ -225,7 +227,7 @@ async function displayMedia(medias) {
        * display the total likes.
        * @param e - the event object
        */
-      function likeMedia(e) {
+      likeMedia = function () {
         const mediaLikesCount = mediaContent.querySelector(
           ".photographer-work__caption-count"
         );
@@ -238,18 +240,18 @@ async function displayMedia(medias) {
           displayTotalLikes();
           mediaContent.dataset.liked = "true";
         }
-      }
+      };
       /**
        * It creates a new instance of the FactoryMedia class, and then calls the createMediaLightbox method
        * on that instance, and then assigns the return value of that method to the innerHTML of the
        * lightboxPreview element.
        */
-      function mediaLightbox() {
+      mediaLightbox = function () {
         openLightbox();
         let lightbox = new FactoryMedia(media);
         lightboxPreview.innerHTML = lightbox.createMediaLightbox();
         lightboxBtn.dataset.mediaPosition = mediaArray.indexOf(media);
-      }
+      };
       photographerWork.appendChild(mediaContent);
     }
 
@@ -301,9 +303,6 @@ async function displayMedia(medias) {
    * @param selected - the event object
    */
   function handleSelect(selected) {
-    const value1 = select.querySelector(":nth-child(1)");
-    const value2 = select.querySelector(":nth-child(2)");
-    const value3 = select.querySelector(":nth-child(3)");
     let target = selected.target;
     if (target.value == 0) {
       const sortLikes = mediasSelect.sort((a, b) => {
