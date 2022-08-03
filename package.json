@@ -10,6 +10,7 @@
     "sass": "sass --watch ./sass/main.scss:./css/style.css -w ",
     "prefix": "postcss ./css/style.css --use autoprefixer -d ./css/prefixed/"
   },
+  "eslintIgnore": ["lang-css.js", "prettify.js", "linenumber.js"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CedricMlg/P6_FishEye_Malingre_Cedric"

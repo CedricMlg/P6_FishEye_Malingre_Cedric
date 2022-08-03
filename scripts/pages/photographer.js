@@ -16,6 +16,12 @@ const ESCKEY = {
 const ENTRKEY = {
   ENTR: 13,
 };
+const LEFTKEY = {
+  LEFT: 37,
+};
+const RIGHTKEY = {
+  RIGHT: 39,
+};
 
 const paramsURL = new URL(document.location).searchParams;
 const idPhotographer = paramsURL.get("id");
@@ -194,8 +200,6 @@ async function displayMedia(medias) {
 
   function mediaInteraction(mediaArray) {
     let sum = 0;
-    let likeMedia;
-    let mediaLightbox;
     for (const media of mediaArray) {
       sum += media.likes;
       const mediaContent = document.createElement("div");
@@ -227,12 +231,11 @@ async function displayMedia(medias) {
        * display the total likes.
        * @param e - the event object
        */
-      likeMedia = function () {
+      function likeMedia() {
         const mediaLikesCount = mediaContent.querySelector(
           ".photographer-work__caption-count"
         );
         if (mediaContent.getAttribute("data-liked") == "false") {
-          console.log(mediaArray);
           sum++;
           mediaLikesCount.textContent =
             parseInt(mediaLikesCount.textContent) + 1;
@@ -240,18 +243,19 @@ async function displayMedia(medias) {
           displayTotalLikes();
           mediaContent.dataset.liked = "true";
         }
-      };
+      }
       /**
        * It creates a new instance of the FactoryMedia class, and then calls the createMediaLightbox method
        * on that instance, and then assigns the return value of that method to the innerHTML of the
        * lightboxPreview element.
        */
-      mediaLightbox = function () {
+       function mediaLightbox() {
         openLightbox();
         let lightbox = new FactoryMedia(media);
+        document.addEventListener("keydown", checkKey);
         lightboxPreview.innerHTML = lightbox.createMediaLightbox();
         lightboxBtn.dataset.mediaPosition = mediaArray.indexOf(media);
-      };
+      }
       photographerWork.appendChild(mediaContent);
     }
 
@@ -273,7 +277,32 @@ async function displayMedia(medias) {
     }
     displayTotalLikes();
   }
-  lightboxPrev.addEventListener("click", function (e) {
+  lightboxPrev.addEventListener("click", prevMedia);
+  lightboxNext.addEventListener("click", nextMedia);
+
+  /**
+   * If the left arrow key is pressed, the previous media is displayed. If the right arrow key is
+   * pressed, the next media is displayed.
+   * @param e - the event object
+   */
+  function checkKey(e) {
+    if (e.keyCode === LEFTKEY.LEFT) {
+      prevMedia(e);
+    } else if (e.keyCode === RIGHTKEY.RIGHT) {
+      nextMedia(e);
+    }
+  }
+
+  /**
+   * "If the current media position is 0, then set the current media position to the last media in the
+   * array, otherwise, subtract 1 from the current media position."
+   *
+   * The above function is called when the user clicks the "previous" button.
+   *
+   * The next function is called when the user clicks the "next" button.
+   * @param e - the event object
+   */
+  function prevMedia(e) {
     e.preventDefault();
     if (lightboxBtn.dataset.mediaPosition == 0) {
       lightboxBtn.dataset.mediaPosition = mediasSelect.length - 1;
@@ -284,8 +313,20 @@ async function displayMedia(medias) {
       mediasSelect[lightboxBtn.dataset.mediaPosition]
     );
     lightboxPreview.innerHTML = lightbox.createMediaLightbox();
-  });
-  lightboxNext.addEventListener("click", function (e) {
+  }
+
+  /**
+   * When the nextMedia function is called, it prevents the default action of the event, then checks if
+   * the data-media-position attribute of the lightboxBtn element is equal to the length of the
+   * mediasSelect array minus one, if it is, it sets the data-media-position attribute of the lightboxBtn
+   * element to zero, otherwise it increments the data-media-position attribute of the lightboxBtn
+   * element by one, then it creates a new FactoryMedia object with the mediasSelect array at the index
+   * of the data-media-position attribute of the lightboxBtn element, then it sets the innerHTML of the
+   * lightboxPreview element to the return value of the createMediaLightbox method of the FactoryMedia
+   * object.
+   * @param e - the event object
+   */
+  function nextMedia(e) {
     e.preventDefault();
     if (lightboxBtn.dataset.mediaPosition == mediasSelect.length - 1) {
       lightboxBtn.dataset.mediaPosition = 0;
@@ -296,7 +337,8 @@ async function displayMedia(medias) {
       mediasSelect[lightboxBtn.dataset.mediaPosition]
     );
     lightboxPreview.innerHTML = lightbox.createMediaLightbox();
-  });
+  }
+
   /**
    * If the value of the selected option is 0, sort the array by likes, if it's 1, sort by date, and if
    * it's 2, sort by title.
