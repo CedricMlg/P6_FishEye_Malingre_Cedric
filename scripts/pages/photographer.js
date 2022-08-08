@@ -226,6 +226,7 @@ async function displayMedia(medias) {
           likeMedia();
         }
       });
+      
       /**
        * If the mediaContent data-liked attribute is false, then add 1 to the mediaLikesCount and
        * display the total likes.
@@ -244,6 +245,7 @@ async function displayMedia(medias) {
           mediaContent.dataset.liked = "true";
         }
       }
+
       /**
        * It creates a new instance of the FactoryMedia class, and then calls the createMediaLightbox method
        * on that instance, and then assigns the return value of that method to the innerHTML of the
