@@ -207,58 +207,68 @@ async function displayMedia(medias) {
       mediaContent.classList.add("lightbox-open");
       mediaContent.dataset.liked = "false";
       mediaContent.innerHTML = new FactoryMedia(media).createMedia();
+
       const mediaPreview = mediaContent.querySelector(
         ".photographer-work__preview"
       );
       const mediaHeart = mediaContent.querySelector(
         ".photographer-work__caption-heart"
       );
+
       select.addEventListener("input", handleSelect);
-      mediaPreview.addEventListener("click", mediaLightbox);
+      mediaPreview.addEventListener("click", function () {
+        mediaLightbox(media);
+      });
       mediaPreview.addEventListener("keydown", function (e) {
         if (e.keyCode === ENTRKEY.ENTR) {
           mediaLightbox();
         }
       });
-      mediaHeart.addEventListener("click", likeMedia);
+
+      mediaHeart.addEventListener("click", function () {
+        likeMedia(mediaContent);
+      });
       mediaHeart.addEventListener("keydown", function (e) {
         if (e.keyCode === ENTRKEY.ENTR) {
           likeMedia();
         }
       });
-      
-      /**
-       * If the mediaContent data-liked attribute is false, then add 1 to the mediaLikesCount and
-       * display the total likes.
-       * @param e - the event object
-       */
-      function likeMedia() {
-        const mediaLikesCount = mediaContent.querySelector(
-          ".photographer-work__caption-count"
-        );
-        if (mediaContent.getAttribute("data-liked") == "false") {
-          sum++;
-          mediaLikesCount.textContent =
-            parseInt(mediaLikesCount.textContent) + 1;
-          mediaHeart.ariaLabel = "liked";
-          displayTotalLikes();
-          mediaContent.dataset.liked = "true";
-        }
-      }
 
-      /**
-       * It creates a new instance of the FactoryMedia class, and then calls the createMediaLightbox method
-       * on that instance, and then assigns the return value of that method to the innerHTML of the
-       * lightboxPreview element.
-       */
-       function mediaLightbox() {
-        openLightbox();
-        let lightbox = new FactoryMedia(media);
-        document.addEventListener("keydown", checkKey);
-        lightboxPreview.innerHTML = lightbox.createMediaLightbox();
-        lightboxBtn.dataset.mediaPosition = mediaArray.indexOf(media);
-      }
       photographerWork.appendChild(mediaContent);
+    }
+
+    /**
+     * If the data-liked attribute is false, add one to the mediaLikesCount, change the ariaLabel to liked,
+     * display the total likes, and change the data-liked attribute to true.
+     * @param content - the media item that was clicked
+     */
+    function likeMedia(content) {
+      const mediaLikesCount = content.querySelector(
+        ".photographer-work__caption-count"
+      );
+      const mediaHeart = content.querySelector(
+        ".photographer-work__caption-heart"
+      );
+      if (content.getAttribute("data-liked") == "false") {
+        sum++;
+        mediaLikesCount.textContent = parseInt(mediaLikesCount.textContent) + 1;
+        mediaHeart.ariaLabel = "liked";
+        displayTotalLikes();
+        content.dataset.liked = "true";
+      }
+    }
+
+    /**
+     * It creates a new instance of the FactoryMedia class, and then adds the HTML to the lightboxPreview
+     * element.
+     * @param data - the object that is passed in from the event listener
+     */
+    function mediaLightbox(data) {
+      openLightbox();
+      let lightbox = new FactoryMedia(data);
+      document.addEventListener("keydown", checkKey);
+      lightboxPreview.innerHTML = lightbox.createMediaLightbox();
+      lightboxBtn.dataset.mediaPosition = mediaArray.indexOf(data);
     }
 
     /**
