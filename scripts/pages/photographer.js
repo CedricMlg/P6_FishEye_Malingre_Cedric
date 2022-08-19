@@ -222,7 +222,7 @@ async function displayMedia(medias) {
       });
       mediaPreview.addEventListener("keydown", function (e) {
         if (e.keyCode === ENTRKEY.ENTR) {
-          mediaLightbox();
+          mediaLightbox(media);
         }
       });
 
@@ -231,7 +231,7 @@ async function displayMedia(medias) {
       });
       mediaHeart.addEventListener("keydown", function (e) {
         if (e.keyCode === ENTRKEY.ENTR) {
-          likeMedia();
+          likeMedia(mediaContent);
         }
       });
 
