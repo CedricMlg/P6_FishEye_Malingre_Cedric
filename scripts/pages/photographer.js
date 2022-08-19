@@ -10,6 +10,7 @@ const modalClose = document.querySelectorAll(".modal-close");
 const lightbox = document.getElementById("lightbox");
 const lightboxClose = document.querySelectorAll(".lightbox-close");
 let previousActiveElement;
+
 const ESCKEY = {
   ESC: 27,
 };
@@ -284,6 +285,7 @@ async function displayMedia(medias) {
                  C512,93.417,453.532,30,376,30z"></path>
     </svg>`;
     }
+
     function displayTotalLikes() {
       likessum.innerHTML = getTotalLikes();
     }
@@ -358,6 +360,7 @@ async function displayMedia(medias) {
    */
   function handleSelect(selected) {
     let target = selected.target;
+    
     if (target.value == 0) {
       const sortLikes = mediasSelect.sort((a, b) => {
         // 1. < 0 a comes first
@@ -379,6 +382,7 @@ async function displayMedia(medias) {
         if (a.title < b.title) return -1;
         return 1;
       });
+
       photographerWork.innerHTML = "";
       mediaInteraction(sortTitle);
     }
