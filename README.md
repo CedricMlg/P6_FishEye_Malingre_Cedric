@@ -1,3 +1,24 @@
 # P6_FishEye_Malingre_Cedric
-Pour prévisualiser ce projet vous aurez besoin d'installer VITE.js sur VScode, voici un guide vers l'utilisation de VITE https://vitejs.dev/guide/
-Une fois installé vous pouvez faire npm run dev dans votre terminale et cliquer sur le lien local host en maintenant CTRL.
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+To get a local copy up and running follow these simple example steps.
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/CedricMlg/P6_FishEye_Malingre_Cedric
+   ```
+2. Install packages
+   ```sh
+   npm install
+   ```
+3. Launch project
+   ```js
+   npm run dev
+   ```
+4. Open project 
+   <br />
+   Click on the local link while pressing CTRL
